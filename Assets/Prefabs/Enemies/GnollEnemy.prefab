@@ -262,6 +262,8 @@ MonoBehaviour:
   freezeRotation: 1
   forceImpulse: 5
   maxHealth: 3
+  healthBarSlider: {fileID: 0}
+  xpReward: 10
   itemDrops:
   - prefab: {fileID: 647661227858094025, guid: 52e3d21043f8865f58fa267568d80d79, type: 3}
     minAmount: 1
@@ -271,6 +273,7 @@ MonoBehaviour:
     minAmount: 1
     maxAmount: 5
     dropChance: 0.2
+  dropDisplaySettings: {fileID: 0}
   stumpPrefab: {fileID: 0}
   stumpOffset: {x: 0, y: 0, z: 0}
   respawnAfterDeath: 0
@@ -303,9 +306,13 @@ MonoBehaviour:
   attackAnimationSpeed: 1.5
   damageableLayers:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 768
   detectionRange: 6
   chaseRange: 12
+  buildingLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  buildingAttackRange: 4
   spawnPoint: {fileID: 0}
   rangedThreshold: 7
   chaseRange: 12

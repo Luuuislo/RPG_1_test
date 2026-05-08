@@ -43,6 +43,7 @@ public class DamageReceiver : MonoBehaviour
     private bool isDead;
 
     private static PlayerExperience _cachedPlayerExp;
+    private static GameObject _damageTextPrefab;
 
     void Start()
     {
@@ -84,10 +85,8 @@ public class DamageReceiver : MonoBehaviour
         }
 
 
-        if (applyHitAnimation)
-        {
-            
-        }
+        SpawnDamageText(amount);
+
         if (currentHealth <= 0)
         {
             isDead = true;
@@ -100,6 +99,16 @@ public class DamageReceiver : MonoBehaviour
             else
                 Die();
         }
+    }
+
+    private void SpawnDamageText(int amount)
+    {
+        if (_damageTextPrefab == null)
+            _damageTextPrefab = Resources.Load<GameObject>("FloatingDamageText");
+        if (_damageTextPrefab == null) return;
+        Vector3 pos = transform.position + new Vector3(Random.Range(-0.3f, 0.3f), 0.8f, 0f);
+        Instantiate(_damageTextPrefab, pos, Quaternion.identity)
+            .GetComponent<FloatingDamageText>()?.Setup(amount);
     }
 
     private void GrantXpToPlayer()

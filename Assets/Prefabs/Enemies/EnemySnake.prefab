@@ -182,8 +182,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b73a5e71c1b9cff78a7749b607774c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  movementType: 0
-  useSkinSystem: 1
+  movementType: 2
+  useSkinSystem: 0
   animatorControllers: []
   selectedSkin: 0
   pathPoints: []
@@ -198,9 +198,13 @@ MonoBehaviour:
   attackAnimationSpeed: 1.5
   damageableLayers:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 768
   detectionRange: 6
   chaseRange: 10
+  buildingLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  buildingAttackRange: 4
   spawnPoint: {fileID: 0}
 --- !u!95 &7860843389180365706
 Animator:

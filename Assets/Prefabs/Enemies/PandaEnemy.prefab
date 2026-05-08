@@ -158,8 +158,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b73a5e71c1b9cff78a7749b607774c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  movementType: 0
-  useSkinSystem: 1
+  movementType: 2
+  useSkinSystem: 0
   animatorControllers: []
   selectedSkin: 0
   pathPoints: []
@@ -174,9 +174,13 @@ MonoBehaviour:
   attackAnimationSpeed: 1.5
   damageableLayers:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 768
   detectionRange: 6
   chaseRange: 10
+  buildingLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  buildingAttackRange: 4
   spawnPoint: {fileID: 0}
 --- !u!61 &4784820533103759024
 BoxCollider2D:
@@ -261,7 +265,7 @@ MonoBehaviour:
   applyForceOnDamage: 1
   freezeRotation: 1
   forceImpulse: 5
-  maxHealth: 1
+  maxHealth: 10
   healthBarSlider: {fileID: 0}
   xpReward: 10
   itemDrops:

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : NPC
 {
@@ -14,6 +15,8 @@ public class Enemy : NPC
     [Header("Detection")]
     public float detectionRange = 6f;
     public float chaseRange = 10f;
+    public LayerMask buildingLayers;
+    public float buildingAttackRange = 4f;
 
     [Header("Spawn Point")]
     public Transform spawnPoint;
@@ -22,6 +25,7 @@ public class Enemy : NPC
     protected bool isAttacking = false;
     protected bool canMove = true;
     protected Vector2 playerDirection;
+    protected Transform _currentTarget;
 
     protected EnemyState currentState = EnemyState.Patrolling;
     protected enum EnemyState { Patrolling, Chasing, Returning }
@@ -40,24 +44,31 @@ public class Enemy : NPC
         if (!isAttacking)
             base.Update();
 
-        if (playerTransform == null) return;
-
-        float distToPlayer = Vector3.Distance(transform.position, playerTransform.position);
+        _currentTarget = FindClosestTarget();
 
         switch (currentState)
         {
             case EnemyState.Patrolling:
-                if (distToPlayer <= detectionRange)
+                if (_currentTarget != null &&
+                    Vector3.Distance(transform.position, _currentTarget.position) <= detectionRange)
                     EnterChaseState();
                 break;
 
             case EnemyState.Chasing:
                 if (isAttacking) break;
-                if (distToPlayer > chaseRange)
+                if (_currentTarget == null)
+                {
+                    EnterReturnState();
+                    break;
+                }
+                float distToTarget = Vector3.Distance(transform.position, _currentTarget.position);
+                bool targetIsBuilding = _currentTarget.GetComponentInParent<BuildingAttack>() != null;
+                float effectiveAttackRange = targetIsBuilding ? buildingAttackRange : attackRange;
+                if (distToTarget > chaseRange)
                 {
                     EnterReturnState();
                 }
-                else if (distToPlayer <= attackRange)
+                else if (distToTarget <= effectiveAttackRange)
                 {
                     agent.ResetPath();
                     if (Time.time >= lastAttackTime + attackCoolDown)
@@ -68,7 +79,7 @@ public class Enemy : NPC
                 }
                 else
                 {
-                    agent.SetDestination(playerTransform.position);
+                    agent.SetDestination(GetDestinationFor(_currentTarget));
                 }
                 break;
 
@@ -78,6 +89,42 @@ public class Enemy : NPC
                     EnterPatrolState();
                 break;
         }
+    }
+
+    Vector3 GetDestinationFor(Transform target)
+    {
+        if (target.GetComponentInParent<BuildingAttack>() != null)
+        {
+            // Navigate to the closest walkable NavMesh point near the building
+            if (NavMesh.SamplePosition(target.position, out NavMeshHit hit, buildingAttackRange, NavMesh.AllAreas))
+                return hit.position;
+        }
+        return target.position;
+    }
+
+    Transform FindClosestTarget()
+    {
+        Transform closest = null;
+        float minDist = float.MaxValue;
+
+        if (playerTransform != null)
+        {
+            float d = Vector3.Distance(transform.position, playerTransform.position);
+            if (d < minDist) { minDist = d; closest = playerTransform; }
+        }
+
+        if (buildingLayers != 0)
+        {
+            Collider2D[] buildings = Physics2D.OverlapCircleAll(
+                transform.position, chaseRange, buildingLayers);
+            foreach (var b in buildings)
+            {
+                float d = Vector3.Distance(transform.position, b.transform.position);
+                if (d < minDist) { minDist = d; closest = b.transform; }
+            }
+        }
+
+        return closest;
     }
 
     private void EnterChaseState()
@@ -102,12 +149,14 @@ public class Enemy : NPC
 
     protected virtual void AttackPlayer()
     {
+        if (_currentTarget == null) return;
+
         isAttacking = true;
         canMove = false;
         agent.ResetPath();
-        playerDirection = playerTransform.position - transform.position;
+        playerDirection = _currentTarget.position - transform.position;
 
-        transform.localScale = playerTransform.position.x > transform.position.x
+        transform.localScale = _currentTarget.position.x > transform.position.x
             ? new Vector3(1, 1, 1)
             : new Vector3(-1, 1, 1);
 
@@ -142,6 +191,7 @@ public class Enemy : NPC
     {
         Vector2 attackDirection = playerDirection == Vector2.zero ? Vector2.right : playerDirection.normalized;
         Vector2 attackPoint = (Vector2)transform.position + attackDirection * attackRange * 0.5f;
+
         Collider2D[] hitTargets = Physics2D.OverlapCircleAll(attackPoint, attackRange, damageableLayers);
         foreach (Collider2D target in hitTargets)
         {
@@ -154,6 +204,17 @@ public class Enemy : NPC
             {
                 DamageReceiverPlayer playerReceiver = target.GetComponentInParent<DamageReceiverPlayer>();
                 playerReceiver?.ApplyDamage(attackDamage, attackDirection);
+            }
+        }
+
+        if (buildingLayers != 0)
+        {
+            Collider2D[] buildingHits = Physics2D.OverlapCircleAll(
+                transform.position, buildingAttackRange, buildingLayers);
+            foreach (Collider2D target in buildingHits)
+            {
+                BuildingAttack building = target.GetComponentInParent<BuildingAttack>();
+                building?.TakeDamage(attackDamage);
             }
         }
     }

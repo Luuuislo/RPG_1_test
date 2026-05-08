@@ -9,6 +9,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -3406576464956584048, guid: 06dbaba93dfa2a4c19e3b1e8d5e334e7, type: 3}
+      propertyPath: maxHealth
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -3406576464956584048, guid: 06dbaba93dfa2a4c19e3b1e8d5e334e7, type: 3}
       propertyPath: itemDrops.Array.size
       value: 3
       objectReference: {fileID: 0}
@@ -59,6 +63,18 @@ PrefabInstance:
     - target: {fileID: -3406576464956584048, guid: 06dbaba93dfa2a4c19e3b1e8d5e334e7, type: 3}
       propertyPath: itemDrops.Array.data[2].dropChance
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751546986541959795, guid: 06dbaba93dfa2a4c19e3b1e8d5e334e7, type: 3}
+      propertyPath: movementType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751546986541959795, guid: 06dbaba93dfa2a4c19e3b1e8d5e334e7, type: 3}
+      propertyPath: buildingLayers.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 1751546986541959795, guid: 06dbaba93dfa2a4c19e3b1e8d5e334e7, type: 3}
+      propertyPath: damageableLayers.m_Bits
+      value: 768
       objectReference: {fileID: 0}
     - target: {fileID: 1913350665929266838, guid: 06dbaba93dfa2a4c19e3b1e8d5e334e7, type: 3}
       propertyPath: m_LocalPosition.x

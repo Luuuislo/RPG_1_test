@@ -30,6 +30,7 @@ public class Projectile : MonoBehaviour
             Vector2 nextPosition = Vector2.MoveTowards(transform.position, targetPoint, speed * Time.deltaTime);
             direction = (targetPoint - (Vector2)transform.position).normalized;
             transform.position = nextPosition;
+            RotateToDirection(direction);
 
             if (Vector2.Distance(transform.position, targetPoint) <= impactDistance)
             {
@@ -40,6 +41,15 @@ public class Projectile : MonoBehaviour
         }
 
         transform.position += (Vector3)(direction * speed * Time.deltaTime);
+        RotateToDirection(direction);
+    }
+
+    void RotateToDirection(Vector2 dir)
+    {
+        if (dir == Vector2.zero) return;
+        transform.localScale = Vector3.one;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
 
     public void SetDirection(Vector2 newDirection)

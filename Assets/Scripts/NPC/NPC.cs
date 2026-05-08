@@ -174,32 +174,44 @@ public class NPC : MonoBehaviour
         while (true)
         {
             Vector3 randomPos = GetRandomNavMeshPosition();
-            agent.SetDestination(randomPos);
-            yield return WaitUntilDestinationReached();
+            if (Vector3.Distance(randomPos, transform.position) > 0.1f)
+            {
+                agent.SetDestination(randomPos);
+                yield return WaitUntilDestinationReached();
+            }
             yield return new WaitForSeconds(waitTimeRandom);
         }
     }
 
     private Vector3 GetRandomNavMeshPosition()
     {
-        Vector3 randomDirection = Random.insideUnitSphere * movementRadius + patrolCenter;
-        if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, movementRadius, NavMesh.AllAreas))
+        for (int i = 0; i < 5; i++)
         {
-            return hit.position;
+            Vector3 randomDirection = Random.insideUnitSphere * movementRadius + patrolCenter;
+            randomDirection.z = patrolCenter.z;
+            float searchRadius = movementRadius * (1f + i * 0.5f);
+            if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, searchRadius, NavMesh.AllAreas))
+                return hit.position;
         }
         return transform.position;
     }
 
     private IEnumerator WaitUntilDestinationReached()
     {
-        while (agent.pathPending || agent.remainingDistance > 0.05f)
+        // Wait 2 frames so pathPending becomes true before we start checking
+        yield return null;
+        yield return null;
+
+        float timeout = 10f;
+        float elapsed = 0f;
+        while (elapsed < timeout)
         {
+            if (!agent.pathPending && agent.remainingDistance <= 0.05f) break;
+            if (agent.isStopped) break;
+            elapsed += Time.deltaTime;
             yield return null;
         }
     }
 
-    private IEnumerator WaitUntiDestinationReached()
-    {
-        yield return WaitUntilDestinationReached();
-    }
+    private IEnumerator WaitUntiDestinationReached() => WaitUntilDestinationReached();
 }

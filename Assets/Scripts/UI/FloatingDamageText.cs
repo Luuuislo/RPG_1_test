@@ -4,7 +4,7 @@ using TMPro;
 public class FloatingDamageText : MonoBehaviour
 {
     public float floatSpeed   = 2.5f;
-    public float fadeDuration = 2.5f;
+    public float fadeDuration = 3f;
     public Color textColor    = new Color(1f, 0.15f, 0.15f);
 
     private TextMeshPro tmp;
@@ -24,11 +24,8 @@ public class FloatingDamageText : MonoBehaviour
     void Update()
     {
         elapsed += Time.deltaTime;
-        // Floats up and slows down (Tibia feel)
         float t = elapsed / fadeDuration;
         transform.position += Vector3.up * floatSpeed * (1f - t * 0.7f) * Time.deltaTime;
-
-        Color c = tmp.color;
-        tmp.color = new Color(c.r, c.g, c.b, Mathf.Lerp(1f, 0f, t));
+        tmp.alpha = Mathf.Lerp(1f, 0f, t);
     }
 }

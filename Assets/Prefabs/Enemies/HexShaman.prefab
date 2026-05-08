@@ -259,8 +259,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e9be54d87be3c294a03c3947cb36d69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RangedEnemy
-  movementType: 0
-  useSkinSystem: 1
+  movementType: 2
+  useSkinSystem: 0
   animatorControllers: []
   selectedSkin: 0
   pathPoints: []
@@ -275,9 +275,13 @@ MonoBehaviour:
   attackAnimationSpeed: 1.5
   damageableLayers:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 768
   detectionRange: 6
   chaseRange: 10
+  buildingLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  buildingAttackRange: 4
   spawnPoint: {fileID: 0}
   projectilePrefab: {fileID: 7368015770312484488, guid: d23e41e223960fb96a7eb527f48777e7, type: 3}
   projectilePrefabs: []

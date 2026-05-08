@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   movementType: 0
-  useSkinSystem: 1
+  useSkinSystem: 0
   animatorControllers: []
   selectedSkin: 0
   pathPoints: []
@@ -125,9 +125,13 @@ MonoBehaviour:
   attackAnimationSpeed: 1.5
   damageableLayers:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 768
   detectionRange: 6
   chaseRange: 10
+  buildingLayers:
+    serializedVersion: 2
+    m_Bits: 512
+  buildingAttackRange: 4
   spawnPoint: {fileID: 0}
 --- !u!50 &5783809660529120958
 Rigidbody2D:
