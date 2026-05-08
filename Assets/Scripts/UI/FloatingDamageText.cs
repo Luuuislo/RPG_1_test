@@ -4,7 +4,7 @@ using TMPro;
 public class FloatingDamageText : MonoBehaviour
 {
     public float floatSpeed   = 2.5f;
-    public float fadeDuration = 1.0f;
+    public float fadeDuration = 2.5f;
     public Color textColor    = new Color(1f, 0.15f, 0.15f);
 
     private TextMeshPro tmp;

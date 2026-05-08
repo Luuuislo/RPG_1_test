@@ -49,6 +49,7 @@ public class Player : MonoBehaviour
     {
         HandleInventoryInput();
         OpenClosePauseMenu();
+        DebugInput();
         Guard();
         Attack();
 
@@ -105,6 +106,13 @@ public class Player : MonoBehaviour
         {
             rb2d.linearVelocity = Vector2.zero;
         }
+    }
+
+    void DebugInput()
+    {
+        var keyboard = UnityEngine.InputSystem.Keyboard.current;
+        if (keyboard != null && keyboard.digit9Key.wasPressedThisFrame)
+            TakeDamage(10);
     }
 
     void HandleInventoryInput()

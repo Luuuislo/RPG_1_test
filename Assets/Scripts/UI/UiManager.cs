@@ -147,9 +147,10 @@ public class UiManager : MonoBehaviour
     {
         var go = GameObject.Find(barName);
         if (go == null) return null;
-        var t = go.transform.Find("Fill");
-        if (t == null) return null;
-        var img = t.GetComponent<Image>();
+        var fillChild = go.transform.Find("Fill");
+        var img = fillChild != null
+            ? fillChild.GetComponent<Image>()
+            : go.GetComponent<Image>();
         if (img == null) return null;
         img.type       = Image.Type.Filled;
         img.fillMethod = Image.FillMethod.Horizontal;
