@@ -15,9 +15,12 @@ public class PlayerExperience : MonoBehaviour
     public float xpExponent = 1.3f;
 
     [Header("Ganancia por punto de stat")]
-    public int  attackGainPerPoint = 1;
-    public float speedGainPerPoint = 0.003f;
-    public int  healthGainPerPoint = 10;
+    public int   attackGainPerPoint    = 1;
+    public float speedGainPerPoint     = 0.003f;
+    public int   healthGainPerPoint    = 10;
+    public float atkSpdGainPerPoint    = 0.03f;
+    public float critChanceGainPerPoint= 0.5f;
+    public float critDmgGainPerPoint   = 0.1f;
 
     // ── State ────────────────────────────────────────────────────────────
     public int Level        { get; private set; } = 1;
@@ -64,7 +67,7 @@ public class PlayerExperience : MonoBehaviour
         if (StatPoints <= 0) return;
         StatPoints--;
         player.attackDamage += attackGainPerPoint;
-        UiManager.Instance?.UpdateStatPanel(StatPoints, player.attackDamage, player.speed, player.maxHealth);
+        RefreshStatUI();
     }
 
     public void InvestSpeed()
@@ -72,7 +75,7 @@ public class PlayerExperience : MonoBehaviour
         if (StatPoints <= 0) return;
         StatPoints--;
         player.speed += speedGainPerPoint;
-        UiManager.Instance?.UpdateStatPanel(StatPoints, player.attackDamage, player.speed, player.maxHealth);
+        RefreshStatUI();
     }
 
     public void InvestHealth()
@@ -80,7 +83,38 @@ public class PlayerExperience : MonoBehaviour
         if (StatPoints <= 0) return;
         StatPoints--;
         player.AddMaxHealth(healthGainPerPoint);
-        UiManager.Instance?.UpdateStatPanel(StatPoints, player.attackDamage, player.speed, player.maxHealth);
+        RefreshStatUI();
+    }
+
+    public void InvestAttackSpeed()
+    {
+        if (StatPoints <= 0) return;
+        StatPoints--;
+        player.attackCooldown = Mathf.Max(0.1f, player.attackCooldown - atkSpdGainPerPoint);
+        RefreshStatUI();
+    }
+
+    public void InvestCritChance()
+    {
+        if (StatPoints <= 0) return;
+        StatPoints--;
+        player.critChance += critChanceGainPerPoint;
+        RefreshStatUI();
+    }
+
+    public void InvestCritDamage()
+    {
+        if (StatPoints <= 0) return;
+        StatPoints--;
+        player.critMultiplier += critDmgGainPerPoint;
+        RefreshStatUI();
+    }
+
+    private void RefreshStatUI()
+    {
+        UiManager.Instance?.UpdateStatPanel(
+            StatPoints, player.attackDamage, player.speed, player.maxHealth,
+            player.attackCooldown, player.critChance, player.critMultiplier);
     }
 
     // ── Privado ───────────────────────────────────────────────────────────
@@ -91,7 +125,7 @@ public class PlayerExperience : MonoBehaviour
         StatPoints += 3;
         UiManager.Instance?.UpdateLevel(Level);
         UiManager.Instance?.ShowLevelUpFeedback(Level);
-        UiManager.Instance?.UpdateStatPanel(StatPoints, player.attackDamage, player.speed, player.maxHealth);
+        RefreshStatUI();
         player.FullHeal();
         if (levelUpParticles != null) levelUpParticles.Play();
         if (levelUpAura      != null) levelUpAura.Play();
@@ -102,7 +136,7 @@ public class PlayerExperience : MonoBehaviour
     {
         UiManager.Instance?.UpdateExp(CurrentXp, XpToNextLevel);
         UiManager.Instance?.UpdateLevel(Level);
-        UiManager.Instance?.UpdateStatPanel(StatPoints, player.attackDamage, player.speed, player.maxHealth);
+        RefreshStatUI();
     }
 
     // ── ContextMenu (clic derecho en el componente en Inspector) ──────────
@@ -122,7 +156,7 @@ public class PlayerExperience : MonoBehaviour
     public void DebugGiveStatPoints()
     {
         StatPoints += debugStatPoints;
-        UiManager.Instance?.UpdateStatPanel(StatPoints, player.attackDamage, player.speed, player.maxHealth);
+        RefreshStatUI();
     }
 
 #if UNITY_EDITOR

@@ -26,9 +26,15 @@ public class UiManager : MonoBehaviour
     public TMP_Text atkValueText;
     public TMP_Text spdValueText;
     public TMP_Text hpValueText;
+    public TMP_Text atkSpdValueText;
+    public TMP_Text critChanceValueText;
+    public TMP_Text critDmgValueText;
     public Button   atkButton;
     public Button   spdButton;
     public Button   hpButton;
+    public Button   atkSpdButton;
+    public Button   critChanceButton;
+    public Button   critDmgButton;
 
     // ── Bar fills (found at runtime, no Inspector wiring needed) ─────────
     private Image   _hpFill;
@@ -59,9 +65,12 @@ public class UiManager : MonoBehaviour
     {
         _playerExp = FindFirstObjectByType<PlayerExperience>();
 
-        if (atkButton != null) atkButton.onClick.AddListener(() => _playerExp?.InvestAttack());
-        if (spdButton != null) spdButton.onClick.AddListener(() => _playerExp?.InvestSpeed());
-        if (hpButton  != null) hpButton.onClick.AddListener( () => _playerExp?.InvestHealth());
+        if (atkButton      != null) atkButton.onClick.AddListener(     () => _playerExp?.InvestAttack());
+        if (spdButton      != null) spdButton.onClick.AddListener(     () => _playerExp?.InvestSpeed());
+        if (hpButton       != null) hpButton.onClick.AddListener(      () => _playerExp?.InvestHealth());
+        if (atkSpdButton   != null) atkSpdButton.onClick.AddListener(  () => _playerExp?.InvestAttackSpeed());
+        if (critChanceButton != null) critChanceButton.onClick.AddListener(() => _playerExp?.InvestCritChance());
+        if (critDmgButton  != null) critDmgButton.onClick.AddListener( () => _playerExp?.InvestCritDamage());
 
         _hpFill = FindBarFill("HPBar");
         _xpFill = FindBarFill("XPBar");
@@ -111,16 +120,24 @@ public class UiManager : MonoBehaviour
     }
 
     // ── Stats Panel ──────────────────────────────────────────────────────
-    public void UpdateStatPanel(int points, int atk, float spd, int hp)
+    public void UpdateStatPanel(int points, int atk, float spd, int hp,
+                                float atkCooldown = 2f, float critChance = 5f, float critMult = 1.3f)
     {
         bool hasPoints = points > 0;
-        if (statPointsText != null) statPointsText.text = $"Pts: {points}";
-        if (atkValueText   != null) atkValueText.text   = atk.ToString();
-        if (spdValueText   != null) spdValueText.text   = spd.ToString("F2");
-        if (hpValueText    != null) hpValueText.text    = hp.ToString();
-        if (atkButton != null) atkButton.interactable = hasPoints;
-        if (spdButton != null) spdButton.interactable = hasPoints;
-        if (hpButton  != null) hpButton.interactable  = hasPoints;
+        if (statPointsText    != null) statPointsText.text    = $"Pts: {points}";
+        if (atkValueText      != null) atkValueText.text      = atk.ToString();
+        if (spdValueText      != null) spdValueText.text      = spd.ToString("F2");
+        if (hpValueText       != null) hpValueText.text       = hp.ToString();
+        if (atkSpdValueText   != null) atkSpdValueText.text   = atkCooldown.ToString("F2") + "s";
+        if (critChanceValueText != null) critChanceValueText.text = critChance.ToString("F1") + "%";
+        if (critDmgValueText  != null) critDmgValueText.text  = critMult.ToString("F1") + "x";
+
+        if (atkButton      != null) atkButton.interactable      = hasPoints;
+        if (spdButton      != null) spdButton.interactable      = hasPoints;
+        if (hpButton       != null) hpButton.interactable       = hasPoints;
+        if (atkSpdButton   != null) atkSpdButton.interactable   = hasPoints;
+        if (critChanceButton != null) critChanceButton.interactable = hasPoints;
+        if (critDmgButton  != null) critDmgButton.interactable  = hasPoints;
     }
 
     public void ShowLevelUpFeedback(int newLevel)

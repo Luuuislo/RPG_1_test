@@ -13,6 +13,11 @@ public class Player : MonoBehaviour
     private int currentHealth;
     public  int maxHealth = 100;
 
+    public float attackCooldown = 2f;
+    public float critChance     = 5f;
+    public float critMultiplier = 1.3f;
+    private float _lastAttackTime = -10f;
+
     private PlayerHitEffect hitEffect;
     private bool gameIsPaused = false;
 
@@ -147,8 +152,10 @@ public class Player : MonoBehaviour
         if (Time.time < ignoreAttackInputUntil) return;
 
         var mouse = UnityEngine.InputSystem.Mouse.current;
-        if (mouse != null && mouse.leftButton.wasPressedThisFrame && !isAttacking && !isGuarding)
+        if (mouse != null && mouse.leftButton.wasPressedThisFrame && !isAttacking && !isGuarding
+            && Time.time >= _lastAttackTime + attackCooldown)
         {
+            _lastAttackTime = Time.time;
             isAttacking = true;
             canMove = false;
             movementInput = Vector2.zero;
@@ -211,6 +218,9 @@ public class Player : MonoBehaviour
 
     public void DetectAndDamageTarget()
     {
+        bool isCrit = Random.value * 100f < critChance;
+        int dmg = isCrit ? Mathf.Max(1, Mathf.RoundToInt(attackDamage * critMultiplier)) : attackDamage;
+
         Vector2 attackPoint = (Vector2)transform.position + attackDir.normalized * attackRange * 0.5f;
         Collider2D[] hitTargets = Physics2D.OverlapCircleAll(attackPoint, attackRange, damageableLayers);
         foreach (Collider2D target in hitTargets)
@@ -218,10 +228,9 @@ public class Player : MonoBehaviour
             DamageReceiver damageReceiver = target.GetComponentInParent<DamageReceiver>();
             if (damageReceiver != null)
             {
-                damageReceiver.ApplyDamage(attackDamage, true, true, attackDir);
+                damageReceiver.ApplyDamage(dmg, true, true, attackDir);
                 continue;
             }
-
         }
     }
 
