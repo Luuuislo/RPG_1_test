@@ -1,0 +1,34 @@
+using UnityEngine;
+using TMPro;
+
+public class FloatingDamageText : MonoBehaviour
+{
+    public float floatSpeed   = 2.5f;
+    public float fadeDuration = 1.0f;
+    public Color textColor    = new Color(1f, 0.15f, 0.15f);
+
+    private TextMeshPro tmp;
+    private float elapsed;
+
+    void Awake() => tmp = GetComponent<TextMeshPro>();
+
+    public void Setup(int damage)
+    {
+        tmp.text      = damage.ToString();
+        tmp.color     = textColor;
+        tmp.outlineWidth = 0.25f;
+        tmp.outlineColor = new Color32(60, 0, 0, 255);
+        Destroy(gameObject, fadeDuration);
+    }
+
+    void Update()
+    {
+        elapsed += Time.deltaTime;
+        // Floats up and slows down (Tibia feel)
+        float t = elapsed / fadeDuration;
+        transform.position += Vector3.up * floatSpeed * (1f - t * 0.7f) * Time.deltaTime;
+
+        Color c = tmp.color;
+        tmp.color = new Color(c.r, c.g, c.b, Mathf.Lerp(1f, 0f, t));
+    }
+}
