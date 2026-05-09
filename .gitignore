@@ -1,0 +1,24 @@
+# Unity generated
+Library/
+Temp/
+Logs/
+obj/
+Build/
+Builds/
+UserSettings/
+
+# Unity auto-generated VS solution/project files
+*.csproj
+*.sln
+*.slnx
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Rider
+.rider/
