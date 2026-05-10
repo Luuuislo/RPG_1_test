@@ -131,12 +131,12 @@ TextureImporter:
       name: Lancer_Run_0
       rect:
         serializedVersion: 2
-        x: 114
-        y: 121
-        width: 68
-        height: 146
+        x: 0
+        y: 0
+        width: 320
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -153,12 +153,12 @@ TextureImporter:
       name: Lancer_Run_1
       rect:
         serializedVersion: 2
-        x: 441
-        y: 120
-        width: 62
-        height: 145
+        x: 320
+        y: 0
+        width: 320
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -175,12 +175,12 @@ TextureImporter:
       name: Lancer_Run_2
       rect:
         serializedVersion: 2
-        x: 765
-        y: 116
-        width: 57
-        height: 145
+        x: 640
+        y: 0
+        width: 320
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -197,12 +197,12 @@ TextureImporter:
       name: Lancer_Run_3
       rect:
         serializedVersion: 2
-        x: 1072
-        y: 121
-        width: 69
-        height: 142
+        x: 960
+        y: 0
+        width: 320
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -219,12 +219,12 @@ TextureImporter:
       name: Lancer_Run_4
       rect:
         serializedVersion: 2
-        x: 1389
-        y: 121
-        width: 72
-        height: 140
+        x: 1280
+        y: 0
+        width: 320
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -241,12 +241,12 @@ TextureImporter:
       name: Lancer_Run_5
       rect:
         serializedVersion: 2
-        x: 1710
-        y: 117
-        width: 72
-        height: 140
+        x: 1600
+        y: 0
+        width: 320
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -263,7 +263,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5b5a37d2c6be3bd9e88570abae892d6c
     internalID: 0
     vertices: []
     indices: 
@@ -271,7 +271,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":6.0,"y":1.0},"gridSpriteSize":{"x":320.0,"y":320.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Lancer_Run_0: -8580444238127179786
       Lancer_Run_1: 828278362111410375

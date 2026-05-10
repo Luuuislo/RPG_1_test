@@ -122,12 +122,12 @@ TextureImporter:
       name: Lancer_Down_Attack_0
       rect:
         serializedVersion: 2
-        x: 142
-        y: 17
-        width: 46
-        height: 153
+        x: 0
+        y: 0
+        width: 320
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -144,12 +144,12 @@ TextureImporter:
       name: Lancer_Down_Attack_1
       rect:
         serializedVersion: 2
-        x: 462
-        y: 17
-        width: 46
-        height: 155
+        x: 320
+        y: 0
+        width: 320
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -166,12 +166,12 @@ TextureImporter:
       name: Lancer_Down_Attack_2
       rect:
         serializedVersion: 2
-        x: 780
-        y: 45
-        width: 49
-        height: 139
+        x: 640
+        y: 0
+        width: 320
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -188,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 726a697172b68bbf18374c4b047f3640
     internalID: 0
     vertices: []
     indices: 
@@ -196,7 +196,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":3.0,"y":1.0},"gridSpriteSize":{"x":320.0,"y":320.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Lancer_Down_Attack_0: 704632438053712794
       Lancer_Down_Attack_1: 3804270661726973974

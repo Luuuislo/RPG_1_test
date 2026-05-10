@@ -125,12 +125,12 @@ TextureImporter:
       name: Run_0
       rect:
         serializedVersion: 2
-        x: 55
-        y: 57
-        width: 83
-        height: 71
+        x: 0
+        y: 0
+        width: 192
+        height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -147,12 +147,12 @@ TextureImporter:
       name: Run_1
       rect:
         serializedVersion: 2
-        x: 246
-        y: 57
-        width: 84
-        height: 73
+        x: 192
+        y: 0
+        width: 192
+        height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -169,12 +169,12 @@ TextureImporter:
       name: Run_2
       rect:
         serializedVersion: 2
-        x: 439
-        y: 57
-        width: 83
-        height: 71
+        x: 384
+        y: 0
+        width: 192
+        height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -191,12 +191,12 @@ TextureImporter:
       name: Run_3
       rect:
         serializedVersion: 2
-        x: 631
-        y: 57
-        width: 84
-        height: 73
+        x: 576
+        y: 0
+        width: 192
+        height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -213,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 1ca7825389399bcbe8676ba0fc7c100c
     internalID: 0
     vertices: []
     indices: 
@@ -221,7 +221,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":4.0,"y":1.0},"gridSpriteSize":{"x":192.0,"y":192.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Run_0: 4944230376442633554
       Run_1: -2274363484027164459

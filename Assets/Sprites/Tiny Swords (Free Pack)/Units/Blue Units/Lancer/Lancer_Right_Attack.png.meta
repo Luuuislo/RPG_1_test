@@ -125,12 +125,12 @@ TextureImporter:
       name: Lancer_Right_Attack_0
       rect:
         serializedVersion: 2
-        x: 143
-        y: 121
-        width: 165
-        height: 75
+        x: 0
+        y: 0
+        width: 320
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -147,12 +147,12 @@ TextureImporter:
       name: Lancer_Right_Attack_1
       rect:
         serializedVersion: 2
-        x: 463
-        y: 121
-        width: 157
-        height: 75
+        x: 320
+        y: 0
+        width: 320
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -169,12 +169,12 @@ TextureImporter:
       name: Lancer_Right_Attack_2
       rect:
         serializedVersion: 2
-        x: 611
-        y: 141
-        width: 17
-        height: 13
+        x: 640
+        y: 0
+        width: 320
+        height: 320
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -187,33 +187,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Lancer_Right_Attack_3
-      rect:
-        serializedVersion: 2
-        x: 760
-        y: 121
-        width: 152
-        height: 77
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a97e7c52a2c9c03c0800000000000000
-      internalID: -4391963831756658790
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: d30cdb5f8e3a5a4eeb6fd7f700f25e35
     internalID: 0
     vertices: []
     indices: 
@@ -221,12 +199,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":3.0,"y":1.0},"gridSpriteSize":{"x":320.0,"y":320.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Lancer_Right_Attack_0: 6331980819534964110
       Lancer_Right_Attack_1: 7232042838751349278
       Lancer_Right_Attack_2: -4157329051755591257
-      Lancer_Right_Attack_3: -4391963831756658790
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

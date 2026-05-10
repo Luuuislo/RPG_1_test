@@ -182,7 +182,7 @@ MonoBehaviour:
   xpReward: 10
   itemDrops:
   - prefab: {fileID: 123584027547587881, guid: 4297d092af12c48119cee94eb0c84c1d, type: 3}
-    minAmount: 1
+    minAmount: 3
     maxAmount: 6
     dropChance: 1
   dropDisplaySettings: {fileID: 11400000, guid: 050bee66ba68c65e6a8d262d2dfc8352, type: 2}
