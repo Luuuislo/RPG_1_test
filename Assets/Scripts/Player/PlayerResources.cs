@@ -2,14 +2,33 @@ using UnityEngine;
 
 public class PlayerResources : MonoBehaviour
 {
+    public static PlayerResources Instance { get; private set; }
+
     private int gold;
     private int wood;
     private int meat;
 
-    // Called by ItemPickup (dropped items with quantity)
+    void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+    }
+
     public void AddGold(int amount) { gold += amount; UiManager.Instance?.UpdateGold(gold); }
     public void AddWood(int amount) { wood += amount; UiManager.Instance?.UpdateWood(wood); }
     public void AddMeat(int amount) { meat += amount; UiManager.Instance?.UpdateMeat(meat); }
+
+    public bool HasEnough(int g, int w, int m) => gold >= g && wood >= w && meat >= m;
+
+    public bool Spend(int g, int w, int m)
+    {
+        if (!HasEnough(g, w, m)) return false;
+        gold -= g; wood -= w; meat -= m;
+        UiManager.Instance?.UpdateGold(gold);
+        UiManager.Instance?.UpdateWood(wood);
+        UiManager.Instance?.UpdateMeat(meat);
+        return true;
+    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {

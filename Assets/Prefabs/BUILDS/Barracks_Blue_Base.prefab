@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4768338650135902564}
   - component: {fileID: 6038485256318004474}
   - component: {fileID: 5376078243251284995}
+  - component: {fileID: 6519601453802676291}
   m_Layer: 0
   m_Name: Barracks_Blue_Base
   m_TagString: Untagged
@@ -166,3 +167,28 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.579009, y: 1.7295299}
   m_EdgeRadius: 0
+--- !u!114 &6519601453802676291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5383543354186496598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65d376ecb1b607aa69477b12e7f3611d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingLevel
+  buildingName: Barracks
+  evolutionTier: 1
+  currentLevel: 1
+  maxLevel: 100
+  goldCostPerLevel: 10
+  woodCostPerLevel: 5
+  meatCostPerLevel: 0
+  evolutionThresholds: 14000000280000003c00000050000000
+  evolutionPrefabs:
+  - {fileID: 4721402196551448799, guid: 386bf0124695c115b9438c2f4c92e4f9, type: 3}
+  - {fileID: 8684536005967638439, guid: d8cdc83175bd20fe99868d0d91860dd9, type: 3}
+  - {fileID: 8780631013737743197, guid: 017d15a7e0bd04784a2b0824f2b65aa0, type: 3}
+  - {fileID: 5513136739738629927, guid: 6be8d999b85cd08ea95c883d6935b678, type: 3}

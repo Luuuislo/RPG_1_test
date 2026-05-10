@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6372291755587875815}
   - component: {fileID: 5854914577008427864}
   - component: {fileID: 2659277383282516873}
+  - component: {fileID: 9146424283583171811}
   m_Layer: 9
   m_Name: Tower_Blue_Base
   m_TagString: Untagged
@@ -206,3 +207,28 @@ MonoBehaviour:
   m_Area: 1
   m_IgnoreFromBuild: 0
   m_AffectedAgents: ffffffff
+--- !u!114 &9146424283583171811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5793227791152808192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65d376ecb1b607aa69477b12e7f3611d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingLevel
+  buildingName: Tower
+  evolutionTier: 1
+  currentLevel: 1
+  maxLevel: 100
+  goldCostPerLevel: 10
+  woodCostPerLevel: 5
+  meatCostPerLevel: 0
+  evolutionThresholds: 14000000280000003c00000050000000
+  evolutionPrefabs:
+  - {fileID: 9051216427290628892, guid: 47c66279167f4eb94b4353ceeb9cb1ce, type: 3}
+  - {fileID: 5999345441665507582, guid: 9381a5e5fa17df968a38c9a1097607af, type: 3}
+  - {fileID: 3590027946147464353, guid: c52e22918ac80a22b81dfc4c250b8133, type: 3}
+  - {fileID: 1767878195524321605, guid: bbfa8201145293db996574a66b1e412b, type: 3}

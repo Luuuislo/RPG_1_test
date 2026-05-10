@@ -16,12 +16,17 @@ public class BuildingPlacer : MonoBehaviour
     public Transform  buttonContainer;
     public GameObject buttonPrefab;   // Prefab con Image (fondo), child "Icon" (Image), child "Label" (TMP)
 
+    public bool IsPlacing => _isPlacing;
+
     private GameObject       _ghost;
     private SpriteRenderer[] _ghostSRs;
     private Vector2          _buildingSize;
     private Vector2          _buildingOffset;
     private GameObject       _selectedPrefab;
     private bool             _isPlacing;
+
+    // Building being moved (null when placing new)
+    private BuildingLevel    _movingBuilding;
 
     static readonly Color ValidColor   = new Color(0f, 1f, 0f, 0.5f);
     static readonly Color InvalidColor = new Color(1f, 0f, 0f, 0.5f);
@@ -85,10 +90,16 @@ public class BuildingPlacer : MonoBehaviour
 
         var mouse = UnityEngine.InputSystem.Mouse.current;
         if (mouse.leftButton.wasPressedThisFrame && CanPlace())
+        {
             PlaceBuilding();
+            return;
+        }
 
         if (kb.escapeKey.wasPressedThisFrame || mouse.rightButton.wasPressedThisFrame)
+        {
+            if (_movingBuilding != null) _movingBuilding.gameObject.SetActive(true);
             CancelPlacement();
+        }
     }
 
     void UpdateGhost()
@@ -155,17 +166,57 @@ public class BuildingPlacer : MonoBehaviour
 
     void PlaceBuilding()
     {
-        var go     = Instantiate(_selectedPrefab, _ghost.transform.position, Quaternion.identity);
-        var parent = GameObject.Find("---BUILDS---");
-        if (parent != null) go.transform.SetParent(parent.transform);
+        if (_movingBuilding != null)
+        {
+            // Repositioning an existing building
+            _movingBuilding.transform.position = _ghost.transform.position;
+            _movingBuilding.gameObject.SetActive(true);
+            BuildingSelector.Instance?.ConfirmMove(_ghost.transform.position);
+            _movingBuilding = null;
+        }
+        else
+        {
+            var go     = Instantiate(_selectedPrefab, _ghost.transform.position, Quaternion.identity);
+            var parent = GameObject.Find("---BUILDS---");
+            if (parent != null) go.transform.SetParent(parent.transform);
+        }
+        CancelPlacement();
     }
 
     void CancelPlacement()
     {
         _isPlacing      = false;
         _selectedPrefab = null;
+        _movingBuilding = null;
         if (_ghost != null) { Destroy(_ghost); _ghost = null; }
         _ghostSRs = null;
+    }
+
+    public void CancelPlacementPublic() => CancelPlacement();
+
+    // Starts ghost mode for an already-placed building (move)
+    public void StartMoveExisting(BuildingLevel bl)
+    {
+        CancelPlacement();
+        _movingBuilding = bl;
+        _isPlacing      = true;
+
+        bl.gameObject.SetActive(false);
+
+        _ghost      = Instantiate(bl.gameObject);
+        _ghost.name = "BuildGhost";
+        _ghost.SetActive(true);
+
+        SetLayerAll(_ghost, 2);
+        CaptureSize(_ghost);
+
+        foreach (var col in _ghost.GetComponentsInChildren<Collider2D>()) col.enabled = false;
+        var rb = _ghost.GetComponent<Rigidbody2D>();
+        if (rb != null) rb.simulated = false;
+        foreach (var mb in _ghost.GetComponentsInChildren<MonoBehaviour>()) mb.enabled = false;
+
+        _ghostSRs = _ghost.GetComponentsInChildren<SpriteRenderer>();
+        foreach (var s in _ghostSRs) s.color = ValidColor;
     }
 
     void ToggleMenu()

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4748051172710716053}
   - component: {fileID: 563866308297287938}
   - component: {fileID: 2081752492948570095}
+  - component: {fileID: 2831047618459355357}
   m_Layer: 0
   m_Name: Archery_Blue_Base
   m_TagString: Untagged
@@ -166,3 +167,28 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2831047618459355357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3436322805946939627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65d376ecb1b607aa69477b12e7f3611d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingLevel
+  buildingName: Archery
+  evolutionTier: 1
+  currentLevel: 1
+  maxLevel: 100
+  goldCostPerLevel: 10
+  woodCostPerLevel: 5
+  meatCostPerLevel: 0
+  evolutionThresholds: 14000000280000003c00000050000000
+  evolutionPrefabs:
+  - {fileID: 208042042404424320, guid: 8184431d618ebfa86ac28490c0df4e69, type: 3}
+  - {fileID: 5814244127425736861, guid: 87601101e4482d1f8ae2fa6e7b1f1374, type: 3}
+  - {fileID: 3829856077283798492, guid: b5c4cca64886d802d979728dd90dc1f4, type: 3}
+  - {fileID: 8643837607393480937, guid: c302754b87220eb688aae65eb5494763, type: 3}

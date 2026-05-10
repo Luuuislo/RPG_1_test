@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2334748280401033525}
   - component: {fileID: 6141576530479158364}
   - component: {fileID: 3597495253257294214}
+  - component: {fileID: 8827941654788481904}
   m_Layer: 0
   m_Name: House_Blue_Base
   m_TagString: Untagged
@@ -166,3 +167,28 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.78125, y: 1.7205238}
   m_EdgeRadius: 0
+--- !u!114 &8827941654788481904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7760440855715354279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65d376ecb1b607aa69477b12e7f3611d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingLevel
+  buildingName: House
+  evolutionTier: 1
+  currentLevel: 1
+  maxLevel: 100
+  goldCostPerLevel: 10
+  woodCostPerLevel: 5
+  meatCostPerLevel: 0
+  evolutionThresholds: 14000000280000003c00000050000000
+  evolutionPrefabs:
+  - {fileID: 5753083332852578084, guid: 7a800b459de88cb5ea999e7bcded13f5, type: 3}
+  - {fileID: 8318648241159789423, guid: 4f0968cd9b5c06f68a96622be7f02a5f, type: 3}
+  - {fileID: 7775508494429059722, guid: 0d1c904c3ea677c53b2298a3cd483150, type: 3}
+  - {fileID: 3525652322676938059, guid: 49826e5b10c368eaebd52c0ba450658c, type: 3}

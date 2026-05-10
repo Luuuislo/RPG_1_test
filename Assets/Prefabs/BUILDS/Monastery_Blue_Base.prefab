@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6579436255399076475}
   - component: {fileID: 6420475440417180172}
   - component: {fileID: 8511687339470045835}
+  - component: {fileID: 2100938664939549136}
   m_Layer: 0
   m_Name: Monastery_Blue_Base
   m_TagString: Untagged
@@ -166,3 +167,28 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2100938664939549136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8207144998717606932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65d376ecb1b607aa69477b12e7f3611d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingLevel
+  buildingName: Monastery
+  evolutionTier: 1
+  currentLevel: 1
+  maxLevel: 100
+  goldCostPerLevel: 10
+  woodCostPerLevel: 5
+  meatCostPerLevel: 0
+  evolutionThresholds: 14000000280000003c00000050000000
+  evolutionPrefabs:
+  - {fileID: 6985791531441428316, guid: b51f8e5b8e023abedae8d716c41ca017, type: 3}
+  - {fileID: 1760571352146687093, guid: 9acb618a945c887a1a39d63f8f91e2bb, type: 3}
+  - {fileID: 3642347614509346937, guid: e1cf16258ab0c19cbb1aac385598d03b, type: 3}
+  - {fileID: 2431589839741229791, guid: 108495e9426a7e6cdb443452b80191cf, type: 3}
