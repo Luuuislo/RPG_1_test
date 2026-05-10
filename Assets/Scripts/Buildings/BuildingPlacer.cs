@@ -148,6 +148,8 @@ public class BuildingPlacer : MonoBehaviour
 
         _ghostSRs = _ghost.GetComponentsInChildren<SpriteRenderer>();
         foreach (var s in _ghostSRs) s.color = ValidColor;
+
+        EnableGhostRange(_ghost);
     }
 
     void CaptureSize(GameObject go)
@@ -217,6 +219,25 @@ public class BuildingPlacer : MonoBehaviour
 
         _ghostSRs = _ghost.GetComponentsInChildren<SpriteRenderer>();
         foreach (var s in _ghostSRs) s.color = ValidColor;
+
+        EnableGhostRange(_ghost);
+    }
+
+    void EnableGhostRange(GameObject ghost)
+    {
+        // Hide health bar — not relevant during placement
+        ghost.GetComponentInChildren<BuildingHealthBar>()?.HideCanvas();
+
+        // Re-enable the range indicator MonoBehaviour (was disabled with all others)
+        var ri = ghost.GetComponent<BuildingRangeIndicator>();
+        if (ri == null) return;
+        ri.enabled = true;
+
+        float range = ghost.GetComponent<BuildingAttack>()?.attackRange
+                   ?? ghost.GetComponent<BuildingLevel>()?.baseRange
+                   ?? 5f;
+        ri.SetRadius(range);
+        ri.Show();
     }
 
     void ToggleMenu()

@@ -96,6 +96,7 @@ public class BuildingLevel : MonoBehaviour
         if (!PlayerResources.Instance.Spend(UpgradeCostGold, UpgradeCostWood, UpgradeCostMeat)) return;
         currentLevel++;
         pendingPoints += pointsPerLevelUp;
+        GetComponent<BuildingAttack>()?.SyncStats(this);
         BuildingSelector.Instance?.RefreshUI();
     }
 
@@ -119,6 +120,7 @@ public class BuildingLevel : MonoBehaviour
             default: return false;
         }
         pendingPoints--;
+        GetComponent<BuildingAttack>()?.SyncStats(this);
         BuildingSelector.Instance?.RefreshUI();
         return true;
     }
@@ -172,6 +174,10 @@ public class BuildingLevel : MonoBehaviour
 
         if (transform.parent != null)
             next.transform.SetParent(transform.parent);
+
+        // Apply evolved stats to BuildingAttack immediately (Start() may not have run yet)
+        if (nbl != null)
+            next.GetComponent<BuildingAttack>()?.SyncStats(nbl);
 
         BuildingSelector.Instance?.Deselect();
         Destroy(gameObject);

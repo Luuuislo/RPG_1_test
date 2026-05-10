@@ -25,10 +25,48 @@ public class BuildingAttack : MonoBehaviour
     private float _lastAttackTime = -999f;
     private static GameObject _damageTextPrefab;
 
+    private BuildingRangeIndicator _rangeIndicator;
+    private BuildingHealthBar      _healthBar;
+
+    void Awake()
+    {
+        _rangeIndicator = GetComponent<BuildingRangeIndicator>() ?? gameObject.AddComponent<BuildingRangeIndicator>();
+        _healthBar      = GetComponent<BuildingHealthBar>()      ?? gameObject.AddComponent<BuildingHealthBar>();
+
+        // Initialize health NOW so TakeDamage can't kill the building before Start() runs
+        _currentHealth = Mathf.Max(maxHealth, 1);
+
+        _rangeIndicator.SetRadius(attackRange);
+        _rangeIndicator.Hide();
+    }
+
     void Start()
     {
-        _currentHealth = maxHealth;
+        var bl = GetComponent<BuildingLevel>();
+        if (bl != null) SyncStats(bl);
+        // SyncStats sets _currentHealth; if no BuildingLevel, keep what Awake set
+        _healthBar.UpdateHealth(_currentHealth, maxHealth);
         SetupAttackZone();
+    }
+
+    // Called by BuildingLevel after every Upgrade, SpendPoint or Evolve
+    public void SyncStats(BuildingLevel bl)
+    {
+        int oldMax = maxHealth;
+
+        // Only override each field if BuildingLevel has a value configured (> 0)
+        if (bl.currentAtk      > 0) attackDamage  = Mathf.RoundToInt(bl.currentAtk);
+        if (bl.currentAtkSpeed > 0) attackCooldown = 1f / bl.currentAtkSpeed;
+        if (bl.currentRange    > 0) attackRange    = bl.currentRange;
+        if (bl.currentHp       > 0) maxHealth      = Mathf.RoundToInt(bl.currentHp);
+
+        // Fallback: if nothing configured in either component, use baseHp or minimum
+        if (maxHealth <= 0) maxHealth = bl.baseHp > 0 ? Mathf.RoundToInt(bl.baseHp) : 50;
+
+        _rangeIndicator?.SetRadius(attackRange);
+
+        // Adjust current health proportionally to new max
+        _currentHealth = Mathf.Clamp(_currentHealth + (maxHealth - oldMax), 1, maxHealth);
     }
 
     void SetupAttackZone()
@@ -64,9 +102,9 @@ public class BuildingAttack : MonoBehaviour
         if (rb != null) rb.gravityScale = 0f;
 
         var proj = arrow.GetComponent<Projectile>() ?? arrow.AddComponent<Projectile>();
-        proj.damage          = attackDamage;
-        proj.speed           = arrowSpeed;
-        proj.damageableLayers= enemyLayers;
+        proj.damage           = attackDamage;
+        proj.speed            = arrowSpeed;
+        proj.damageableLayers = enemyLayers;  // Inspector: solo marcar layer "Enemy"
         proj.SetTarget(target.transform);
     }
 
@@ -86,6 +124,7 @@ public class BuildingAttack : MonoBehaviour
     public void TakeDamage(int amount)
     {
         _currentHealth -= amount;
+        _healthBar?.UpdateHealth(_currentHealth, maxHealth);
         SpawnDamageText(amount);
         if (_currentHealth <= 0)
             Destroy(gameObject);

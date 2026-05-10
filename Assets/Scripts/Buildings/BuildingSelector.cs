@@ -64,10 +64,12 @@ public class BuildingSelector : MonoBehaviour
     {
         Selected = bl;
         buildingUI?.Show(bl);
+        bl.GetComponent<BuildingRangeIndicator>()?.Show();
     }
 
     public void Deselect()
     {
+        Selected?.GetComponent<BuildingRangeIndicator>()?.Hide();
         Selected = null;
         buildingUI?.Hide();
     }

@@ -81,12 +81,7 @@ public class Projectile : MonoBehaviour
         if (hasHit) return;
 
         bool isInDamageableLayer = ((1 << other.gameObject.layer) & damageableLayers) != 0;
-        bool isPlayer = other.GetComponentInParent<Player>() != null;
-
-        if (!isInDamageableLayer && !isPlayer)
-        {
-            return;
-        }
+        if (!isInDamageableLayer) return;
 
         HitTarget(other.gameObject, other.bounds.center);
     }

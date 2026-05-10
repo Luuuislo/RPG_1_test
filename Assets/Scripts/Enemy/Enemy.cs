@@ -189,34 +189,27 @@ public class Enemy : NPC
 
     public void DetectAndDamageTarget()
     {
-        Vector2 attackDirection = playerDirection == Vector2.zero ? Vector2.right : playerDirection.normalized;
-        Vector2 attackPoint = (Vector2)transform.position + attackDirection * attackRange * 0.5f;
+        if (_currentTarget == null) return;
 
-        Collider2D[] hitTargets = Physics2D.OverlapCircleAll(attackPoint, attackRange, damageableLayers);
-        foreach (Collider2D target in hitTargets)
+        Vector2 attackDir = playerDirection == Vector2.zero ? Vector2.right : playerDirection.normalized;
+
+        // Damage only the committed target — no area splash
+        BuildingAttack building = _currentTarget.GetComponentInParent<BuildingAttack>();
+        if (building != null)
         {
-            DamageReceiver damageReceiver = target.GetComponentInParent<DamageReceiver>();
-            if (damageReceiver != null)
-            {
-                damageReceiver.ApplyDamage(attackDamage, true, true, attackDirection);
-            }
-            else
-            {
-                DamageReceiverPlayer playerReceiver = target.GetComponentInParent<DamageReceiverPlayer>();
-                playerReceiver?.ApplyDamage(attackDamage, attackDirection);
-            }
+            building.TakeDamage(attackDamage);
+            return;
         }
 
-        if (buildingLayers != 0)
+        DamageReceiver dr = _currentTarget.GetComponentInParent<DamageReceiver>();
+        if (dr != null)
         {
-            Collider2D[] buildingHits = Physics2D.OverlapCircleAll(
-                transform.position, buildingAttackRange, buildingLayers);
-            foreach (Collider2D target in buildingHits)
-            {
-                BuildingAttack building = target.GetComponentInParent<BuildingAttack>();
-                building?.TakeDamage(attackDamage);
-            }
+            dr.ApplyDamage(attackDamage, true, true, attackDir);
+            return;
         }
+
+        DamageReceiverPlayer drp = _currentTarget.GetComponentInParent<DamageReceiverPlayer>();
+        drp?.ApplyDamage(attackDamage, attackDir);
     }
 
     void OnDrawGizmosSelected()

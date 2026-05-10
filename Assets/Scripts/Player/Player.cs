@@ -79,6 +79,19 @@ public class Player : MonoBehaviour
         if (keyboard.dKey.isPressed) movementInput.x += 1;
 
         movementInput = movementInput.normalized;
+
+        // Auto-follow: sólo si no hay input manual y el target está fuera de rango de ataque
+        if (movementInput == Vector2.zero)
+        {
+            var targeting = GetComponent<PlayerTargeting>();
+            if (targeting != null && targeting.autoFollow && targeting.CurrentTarget != null)
+            {
+                float dist = Vector2.Distance(transform.position, targeting.CurrentTarget.position);
+                if (dist > attackRange)   // en rango → para; fuera → sigue
+                    movementInput = ((Vector2)(targeting.CurrentTarget.position - transform.position)).normalized;
+            }
+        }
+
         if (movementInput != Vector2.zero)
         {
             attackDir = movementInput;
@@ -147,31 +160,50 @@ public class Player : MonoBehaviour
         }
     }
 
-    void Attack ()
+    void Attack()
     {
         if (Time.time < ignoreAttackInputUntil) return;
+        if (isAttacking || isGuarding) return;
+        if (Time.time < _lastAttackTime + attackCooldown) return;
 
-        var mouse = UnityEngine.InputSystem.Mouse.current;
-        if (mouse != null && mouse.leftButton.wasPressedThisFrame && !isAttacking && !isGuarding
-            && Time.time >= _lastAttackTime + attackCooldown)
+        var targeting = GetComponent<PlayerTargeting>();
+        if (targeting == null || targeting.CurrentTarget == null) return;
+
+        // Check target still alive
+        if (!targeting.CurrentTarget.gameObject.activeInHierarchy)
         {
-            _lastAttackTime = Time.time;
-            isAttacking = true;
-            canMove = false;
-            movementInput = Vector2.zero;
-            rb2d.linearVelocity = Vector2.zero;
-            animator.SetFloat("Speed", 0f);
-
-            int randomIndex = Random.Range(0, 2);
-            animator.SetInteger("AttackIndex", randomIndex);
-            animator.SetTrigger("DoAttack");
+            targeting.ClearTarget();
+            return;
         }
+
+        // Check range
+        float dist = Vector2.Distance(transform.position, targeting.CurrentTarget.position);
+        if (dist > attackRange) return;
+
+        // Auto-attack
+        _lastAttackTime = Time.time;
+        isAttacking     = true;
+        canMove         = false;
+        movementInput   = Vector2.zero;
+        rb2d.linearVelocity = Vector2.zero;
+
+        attackDir = ((Vector2)(targeting.CurrentTarget.position - transform.position)).normalized;
+
+        // Face toward target
+        Vector3 s = transform.localScale;
+        s.x = attackDir.x > 0 ? Mathf.Abs(s.x) : -Mathf.Abs(s.x);
+        transform.localScale = s;
+
+        animator.SetFloat("Speed", 0f);
+        animator.SetInteger("AttackIndex", Random.Range(0, 2));
+        animator.SetTrigger("DoAttack");
     }
 
     void Guard()
     {
-        var mouse = UnityEngine.InputSystem.Mouse.current;
-        isGuarding = mouse != null && mouse.rightButton.isPressed && !isAttacking;
+        // Right-click now used for targeting — guard moved to G key
+        var kb = UnityEngine.InputSystem.Keyboard.current;
+        isGuarding = kb != null && kb.gKey.isPressed && !isAttacking;
         animator.SetBool("IsGuarding", isGuarding);
     }
 
@@ -221,17 +253,16 @@ public class Player : MonoBehaviour
         bool isCrit = Random.value * 100f < critChance;
         int dmg = isCrit ? Mathf.Max(1, Mathf.RoundToInt(attackDamage * critMultiplier)) : attackDamage;
 
-        Vector2 attackPoint = (Vector2)transform.position + attackDir.normalized * attackRange * 0.5f;
-        Collider2D[] hitTargets = Physics2D.OverlapCircleAll(attackPoint, attackRange, damageableLayers);
-        foreach (Collider2D target in hitTargets)
-        {
-            DamageReceiver damageReceiver = target.GetComponentInParent<DamageReceiver>();
-            if (damageReceiver != null)
-            {
-                damageReceiver.ApplyDamage(dmg, true, true, attackDir);
-                continue;
-            }
-        }
+        var targeting = GetComponent<PlayerTargeting>();
+        Transform target = targeting?.CurrentTarget;
+        if (target == null) return;
+
+        DamageReceiver dr = target.GetComponentInParent<DamageReceiver>();
+        dr?.ApplyDamage(dmg, true, true, attackDir);
+
+        // Clear target if it died during this hit
+        if (target == null || !target.gameObject.activeInHierarchy)
+            targeting?.ClearTarget();
     }
 
     void OnDrawGizmosSelected()
