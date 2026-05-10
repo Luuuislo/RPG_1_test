@@ -40,6 +40,11 @@ public class BuildingSelector : MonoBehaviour
 
         if (!mouse.leftButton.wasPressedThisFrame) return;
 
+        // Don't process world clicks when the pointer is over a UI element
+        if (UnityEngine.EventSystems.EventSystem.current != null &&
+            UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
+            return;
+
         Vector2 screen = mouse.position.ReadValue();
         Vector3 world  = Camera.main.ScreenToWorldPoint(new Vector3(screen.x, screen.y, -Camera.main.transform.position.z));
 

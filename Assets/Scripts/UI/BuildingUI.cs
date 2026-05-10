@@ -12,7 +12,17 @@ public class BuildingUI : MonoBehaviour
     public Text tierText;
     public Text costText;
 
-    [Header("Buttons")]
+    [Header("Stats")]
+    public Text statsText;
+    public Text pointsText;
+
+    [Header("Stat Buttons")]
+    public Button addAtkButton;
+    public Button addSpdButton;
+    public Button addHpButton;
+    public GameObject statButtonsRow;   // parent row — hidden when no points
+
+    [Header("Action Buttons")]
     public Button upgradeButton;
     public Button evolveButton;
     public Button moveButton;
@@ -26,7 +36,25 @@ public class BuildingUI : MonoBehaviour
         evolveButton?.onClick.AddListener(OnEvolve);
         moveButton?.onClick.AddListener(OnMove);
         closeButton?.onClick.AddListener(Hide);
-        // Panel starts inactive via scene setup — no SetActive(false) here
+
+        addAtkButton?.onClick.AddListener(() => OnSpendPoint(StatType.Atk));
+        addSpdButton?.onClick.AddListener(() => OnSpendPoint(StatType.AtkSpeed));
+        addHpButton?.onClick.AddListener(() => OnSpendPoint(StatType.Hp));
+
+        SetButtonLabel(upgradeButton, "Upgrade");
+        SetButtonLabel(evolveButton,  "Evolve!");
+        SetButtonLabel(moveButton,    "Move");
+        SetButtonLabel(closeButton,   "X");
+        SetButtonLabel(addAtkButton,  "+ATK");
+        SetButtonLabel(addSpdButton,  "+SPD");
+        SetButtonLabel(addHpButton,   "+HP");
+    }
+
+    void SetButtonLabel(Button btn, string label)
+    {
+        if (btn == null) return;
+        var txt = btn.GetComponentInChildren<Text>();
+        if (txt != null) txt.text = label;
     }
 
     public void Show(BuildingLevel bl)
@@ -51,15 +79,32 @@ public class BuildingUI : MonoBehaviour
         if (tierText  != null) tierText.text  = $"Tier {_current.evolutionTier}";
 
         if (costText != null)
-            costText.text = $"Upgrade: {_current.UpgradeCostGold}G  {_current.UpgradeCostWood}W  {_current.UpgradeCostMeat}M";
+            costText.text = $"Cost: {_current.UpgradeCostGold}G  {_current.UpgradeCostWood}W  {_current.UpgradeCostMeat}M";
 
+        // Stats
+        if (statsText != null)
+            statsText.text =
+                $"ATK {_current.currentAtk:0.#}  " +
+                $"SPD {_current.currentAtkSpeed:0.##}  " +
+                $"HP {_current.currentHp:0.#}  " +
+                $"RNG {_current.currentRange:0.#}";
+
+        // Pending points row
+        bool hasPoints = _current.pendingPoints > 0;
+        if (pointsText != null)
+        {
+            pointsText.gameObject.SetActive(hasPoints);
+            if (hasPoints) pointsText.text = $"Points: {_current.pendingPoints}";
+        }
+        if (statButtonsRow != null) statButtonsRow.SetActive(hasPoints);
+
+        // Upgrade button
         if (upgradeButton != null)
             upgradeButton.interactable = _current.CanUpgrade;
 
+        // Evolve button
         if (evolveButton != null)
-        {
             evolveButton.gameObject.SetActive(_current.CanEvolve);
-        }
     }
 
     void OnUpgrade()
@@ -71,12 +116,18 @@ public class BuildingUI : MonoBehaviour
     void OnEvolve()
     {
         _current?.Evolve();
-        // Evolve destroys the object and deselects — panel hides via Deselect
     }
 
     void OnMove()
     {
         if (_current == null) return;
         BuildingSelector.Instance?.StartMove(_current);
+    }
+
+    void OnSpendPoint(StatType stat)
+    {
+        if (_current == null) return;
+        _current.SpendPoint(stat);
+        Refresh();
     }
 }
