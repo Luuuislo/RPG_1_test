@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: 6075040891453544209}
   - component: {fileID: 9207307751824712676}
   - component: {fileID: 9061866054854505514}
+  - component: {fileID: 7078329320990566882}
+  - component: {fileID: 6801327809752278664}
+  - component: {fileID: 2125257555954177224}
   m_Layer: 0
   m_Name: Barracks_Red_Base_Evolution_4
   m_TagString: Untagged
@@ -183,8 +186,9 @@ MonoBehaviour:
   evolutionTier: 4
   currentLevel: 1
   maxLevel: 100
-  goldCostPerLevel: 10
-  woodCostPerLevel: 5
+  pointsPerLevelUp: 3
+  goldCostPerLevel: 15
+  woodCostPerLevel: 8
   meatCostPerLevel: 0
   evolutionThresholds: 14000000280000003c00000050000000
   evolutionPrefabs:
@@ -192,3 +196,93 @@ MonoBehaviour:
   - {fileID: 8684536005967638439, guid: d8cdc83175bd20fe99868d0d91860dd9, type: 3}
   - {fileID: 8780631013737743197}
   - {fileID: 5513136739738629927, guid: 6be8d999b85cd08ea95c883d6935b678, type: 3}
+  baseAtk: 0
+  baseAtkSpeed: 0
+  baseHp: 200
+  baseRange: 0
+  atkPerPoint: 0
+  atkSpeedPerPoint: 0
+  hpPerPoint: 50
+  evolutionBonusPercent:
+  - 20
+  - 40
+  - 60
+  - 80
+  rangeIncreasePerEvolution: 0
+  currentAtk: 0
+  currentAtkSpeed: 0
+  currentHp: 0
+  currentRange: 0
+  pendingPoints: 0
+  spentOnAtk: 0
+  spentOnAtkSpeed: 0
+  spentOnHp: 0
+--- !u!114 &7078329320990566882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8780631013737743197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e58d40bda22705be9817fbc3a25dba1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingAttack
+  attackDamage: 0
+  attackRange: 0
+  attackCooldown: 999
+  maxHealth: 200
+  attackZoneRadius: 1.5
+  arrowPrefab: {fileID: 0}
+  arrowSpeed: 8
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &6801327809752278664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8780631013737743197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c897c351b9df7b21badc85c38bcc85fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingHealthBar
+  offset: {x: 0, y: 0.9, z: 0}
+  width: 1
+  height: 0.12
+  bgColor: {r: 0.1, g: 0.1, b: 0.1, a: 0.85}
+  healthyColor: {r: 0, g: 1, b: 0, a: 1}
+  criticalColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &2125257555954177224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8780631013737743197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a35f9fcd661840ae9a7036db50899b57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitProducer
+  units:
+  - unitName: Warrior
+    prefab: {fileID: 272594053065745647, guid: 52a2c004e24ed7949a7be28dca638c7a, type: 3}
+    icon: {fileID: 0}
+    goldCost: 15
+    woodCost: 4
+    meatCost: 0
+    trainTime: 6
+  - unitName: Lancer
+    prefab: {fileID: 5320302858138627375, guid: 58ce33a8d888c6c9984cbd3b53527582, type: 3}
+    icon: {fileID: 0}
+    goldCost: 15
+    woodCost: 4
+    meatCost: 0
+    trainTime: 6
+  maxQueueSize: 5
+  spawnOffset: {x: 1.5, y: -0.5, z: 0}

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5854914577008427864}
   - component: {fileID: 2659277383282516873}
   - component: {fileID: 9146424283583171811}
+  - component: {fileID: -8909791045227123251}
   m_Layer: 9
   m_Name: Tower_Blue_Base
   m_TagString: Untagged
@@ -254,3 +255,18 @@ MonoBehaviour:
   spentOnAtk: 0
   spentOnAtkSpeed: 0
   spentOnHp: 0
+--- !u!114 &-8909791045227123251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5793227791152808192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c897c351b9df7b21badc85c38bcc85fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingHealthBar
+  offset: {x: 0, y: 0.9, z: 0}
+  width: 2
+  height: 0.3

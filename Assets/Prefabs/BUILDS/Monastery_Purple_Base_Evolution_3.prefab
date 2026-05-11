@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: 5570041805713272851}
   - component: {fileID: 3551541131300327664}
   - component: {fileID: 282304074878458953}
+  - component: {fileID: 1829466065495234519}
+  - component: {fileID: 7577604542543481688}
+  - component: {fileID: 8888736938442544309}
   m_Layer: 0
   m_Name: Monastery_Purple_Base_Evolution_3
   m_TagString: Untagged
@@ -183,8 +186,9 @@ MonoBehaviour:
   evolutionTier: 3
   currentLevel: 1
   maxLevel: 100
-  goldCostPerLevel: 10
-  woodCostPerLevel: 5
+  pointsPerLevelUp: 3
+  goldCostPerLevel: 18
+  woodCostPerLevel: 10
   meatCostPerLevel: 0
   evolutionThresholds: 14000000280000003c00000050000000
   evolutionPrefabs:
@@ -192,3 +196,86 @@ MonoBehaviour:
   - {fileID: 1760571352146687093}
   - {fileID: 3642347614509346937, guid: e1cf16258ab0c19cbb1aac385598d03b, type: 3}
   - {fileID: 2431589839741229791, guid: 108495e9426a7e6cdb443452b80191cf, type: 3}
+  baseAtk: 0
+  baseAtkSpeed: 0
+  baseHp: 120
+  baseRange: 0
+  atkPerPoint: 0
+  atkSpeedPerPoint: 0
+  hpPerPoint: 50
+  evolutionBonusPercent:
+  - 20
+  - 40
+  - 60
+  - 80
+  rangeIncreasePerEvolution: 0
+  currentAtk: 0
+  currentAtkSpeed: 0
+  currentHp: 0
+  currentRange: 0
+  pendingPoints: 0
+  spentOnAtk: 0
+  spentOnAtkSpeed: 0
+  spentOnHp: 0
+--- !u!114 &1829466065495234519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760571352146687093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e58d40bda22705be9817fbc3a25dba1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingAttack
+  attackDamage: 0
+  attackRange: 0
+  attackCooldown: 999
+  maxHealth: 120
+  attackZoneRadius: 1.5
+  arrowPrefab: {fileID: 0}
+  arrowSpeed: 8
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &7577604542543481688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760571352146687093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c897c351b9df7b21badc85c38bcc85fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingHealthBar
+  offset: {x: 0, y: 0.9, z: 0}
+  width: 1
+  height: 0.12
+  bgColor: {r: 0.1, g: 0.1, b: 0.1, a: 0.85}
+  healthyColor: {r: 0, g: 1, b: 0, a: 1}
+  criticalColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &8888736938442544309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760571352146687093}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a35f9fcd661840ae9a7036db50899b57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitProducer
+  units:
+  - unitName: Monk
+    prefab: {fileID: 280289780340027731, guid: d8278c4fb20aebff7825478947e4e894, type: 3}
+    icon: {fileID: 0}
+    goldCost: 18
+    woodCost: 5
+    meatCost: 0
+    trainTime: 6
+  maxQueueSize: 5
+  spawnOffset: {x: 1.5, y: -0.5, z: 0}

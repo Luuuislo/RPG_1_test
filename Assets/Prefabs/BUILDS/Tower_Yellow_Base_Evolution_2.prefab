@@ -187,7 +187,7 @@ MonoBehaviour:
   maxHealth: 10
   attackZoneRadius: 2
   arrowPrefab: {fileID: 8125743914610277504, guid: 5f818b0c592dd74259678608a08d4183, type: 3}
-  arrowSpeed: 8
+  arrowSpeed: 12
   enemyLayers:
     serializedVersion: 2
     m_Bits: 8
@@ -223,6 +223,7 @@ MonoBehaviour:
   evolutionTier: 2
   currentLevel: 1
   maxLevel: 100
+  pointsPerLevelUp: 3
   goldCostPerLevel: 10
   woodCostPerLevel: 5
   meatCostPerLevel: 0
@@ -232,3 +233,24 @@ MonoBehaviour:
   - {fileID: 5999345441665507582, guid: 9381a5e5fa17df968a38c9a1097607af, type: 3}
   - {fileID: 3590027946147464353, guid: c52e22918ac80a22b81dfc4c250b8133, type: 3}
   - {fileID: 1767878195524321605, guid: bbfa8201145293db996574a66b1e412b, type: 3}
+  baseAtk: 10
+  baseAtkSpeed: 1
+  baseHp: 100
+  baseRange: 5
+  atkPerPoint: 1
+  atkSpeedPerPoint: 0.1
+  hpPerPoint: 10
+  evolutionBonusPercent:
+  - 20
+  - 40
+  - 60
+  - 80
+  rangeIncreasePerEvolution: 2
+  currentAtk: 0
+  currentAtkSpeed: 0
+  currentHp: 0
+  currentRange: 0
+  pendingPoints: 0
+  spentOnAtk: 0
+  spentOnAtkSpeed: 0
+  spentOnHp: 0

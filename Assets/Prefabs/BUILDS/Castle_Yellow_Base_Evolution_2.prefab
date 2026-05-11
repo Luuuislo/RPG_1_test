@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: 4356494311572735216}
   - component: {fileID: 1185872135855881763}
   - component: {fileID: 4168306968672187605}
+  - component: {fileID: 1469056063438347208}
+  - component: {fileID: 3714953949726785127}
+  - component: {fileID: 5736954930652085821}
   m_Layer: 9
   m_Name: Castle_Yellow_Base_Evolution_2
   m_TagString: Untagged
@@ -179,13 +182,124 @@ MonoBehaviour:
   attackDamage: 1
   attackRange: 10
   attackCooldown: 2
-  maxHealth: 10
+  maxHealth: 1000
   attackZoneRadius: 2
   arrowPrefab: {fileID: 8125743914610277504, guid: 5f818b0c592dd74259678608a08d4183, type: 3}
-  arrowSpeed: 8
+  arrowSpeed: 12
   enemyLayers:
     serializedVersion: 2
     m_Bits: 8
+--- !u!114 &1469056063438347208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4302037990397255197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65d376ecb1b607aa69477b12e7f3611d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingLevel
+  buildingName: Castle
+  evolutionTier: 2
+  currentLevel: 1
+  maxLevel: 100
+  pointsPerLevelUp: 3
+  goldCostPerLevel: 20
+  woodCostPerLevel: 10
+  meatCostPerLevel: 0
+  evolutionThresholds: 14000000280000003c00000050000000
+  evolutionPrefabs:
+  - {fileID: 4302037990397255197}
+  - {fileID: 465124984929598642, guid: b4ab9eafe3968fd4da0ac3833367660f, type: 3}
+  - {fileID: 8108585522514497428, guid: ae67c2f3398d767b990cb027f8d6d4c3, type: 3}
+  - {fileID: 8046412447144886895, guid: fea3bbf43bbcb05d0956dbdb463e3333, type: 3}
+  baseAtk: 10
+  baseAtkSpeed: 1
+  baseHp: 300
+  baseRange: 8
+  atkPerPoint: 1
+  atkSpeedPerPoint: 0.02
+  hpPerPoint: 100
+  evolutionBonusPercent:
+  - 20
+  - 40
+  - 60
+  - 80
+  rangeIncreasePerEvolution: 1
+  currentAtk: 0
+  currentAtkSpeed: 0
+  currentHp: 0
+  currentRange: 0
+  pendingPoints: 0
+  spentOnAtk: 0
+  spentOnAtkSpeed: 0
+  spentOnHp: 0
+--- !u!114 &3714953949726785127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4302037990397255197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c897c351b9df7b21badc85c38bcc85fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingHealthBar
+  offset: {x: 0, y: 0.9, z: 0}
+  width: 1
+  height: 0.12
+  bgColor: {r: 0.1, g: 0.1, b: 0.1, a: 0.85}
+  healthyColor: {r: 0, g: 1, b: 0, a: 1}
+  criticalColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!61 &5736954930652085821
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4302037990397255197}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 4.90625, y: 3.28125}
+    newSize: {x: 4.90625, y: 3.28125}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 2.2, y: 2.2}
+  m_EdgeRadius: 0
 --- !u!1 &5670942352955169749
 GameObject:
   m_ObjectHideFlags: 0

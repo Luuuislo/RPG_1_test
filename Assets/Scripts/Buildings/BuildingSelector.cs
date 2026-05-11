@@ -5,8 +5,9 @@ public class BuildingSelector : MonoBehaviour
     public static BuildingSelector Instance { get; private set; }
 
     [Header("References")]
-    public BuildingUI   buildingUI;
-    public BuildingPlacer placer;
+    public BuildingUI        buildingUI;
+    public UnitProducerUI    unitProducerUI;
+    public BuildingPlacer    placer;
 
     public BuildingLevel Selected { get; private set; }
 
@@ -63,7 +64,16 @@ public class BuildingSelector : MonoBehaviour
     public void Select(BuildingLevel bl)
     {
         Selected = bl;
-        buildingUI?.Show(bl);
+        if (bl.GetComponent<UnitProducer>() != null)
+        {
+            buildingUI?.Hide();
+            unitProducerUI?.Show(bl);
+        }
+        else
+        {
+            unitProducerUI?.Hide();
+            buildingUI?.Show(bl);
+        }
         bl.GetComponent<BuildingRangeIndicator>()?.Show();
     }
 
@@ -72,11 +82,16 @@ public class BuildingSelector : MonoBehaviour
         Selected?.GetComponent<BuildingRangeIndicator>()?.Hide();
         Selected = null;
         buildingUI?.Hide();
+        unitProducerUI?.Hide();
     }
 
     public void RefreshUI()
     {
-        if (Selected != null) buildingUI?.Show(Selected);
+        if (Selected == null) return;
+        if (Selected.GetComponent<UnitProducer>() != null)
+            unitProducerUI?.Refresh();
+        else
+            buildingUI?.Show(Selected);
     }
 
     // --- Move ---

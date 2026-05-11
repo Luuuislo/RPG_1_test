@@ -13,6 +13,9 @@ GameObject:
   - component: {fileID: 8097405126708873904}
   - component: {fileID: 518012020484251325}
   - component: {fileID: 5743091375251230845}
+  - component: {fileID: 7194922809502941749}
+  - component: {fileID: 1526431515998258224}
+  - component: {fileID: 8250233177689593293}
   m_Layer: 0
   m_Name: Archery_Red_Base_Evolution_4
   m_TagString: Untagged
@@ -183,8 +186,9 @@ MonoBehaviour:
   evolutionTier: 4
   currentLevel: 1
   maxLevel: 100
-  goldCostPerLevel: 10
-  woodCostPerLevel: 5
+  pointsPerLevelUp: 3
+  goldCostPerLevel: 12
+  woodCostPerLevel: 8
   meatCostPerLevel: 0
   evolutionThresholds: 14000000280000003c00000050000000
   evolutionPrefabs:
@@ -192,3 +196,86 @@ MonoBehaviour:
   - {fileID: 5814244127425736861, guid: 87601101e4482d1f8ae2fa6e7b1f1374, type: 3}
   - {fileID: 3829856077283798492}
   - {fileID: 8643837607393480937, guid: c302754b87220eb688aae65eb5494763, type: 3}
+  baseAtk: 0
+  baseAtkSpeed: 0
+  baseHp: 150
+  baseRange: 0
+  atkPerPoint: 0
+  atkSpeedPerPoint: 0
+  hpPerPoint: 50
+  evolutionBonusPercent:
+  - 20
+  - 40
+  - 60
+  - 80
+  rangeIncreasePerEvolution: 0
+  currentAtk: 0
+  currentAtkSpeed: 0
+  currentHp: 0
+  currentRange: 0
+  pendingPoints: 0
+  spentOnAtk: 0
+  spentOnAtkSpeed: 0
+  spentOnHp: 0
+--- !u!114 &7194922809502941749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3829856077283798492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e58d40bda22705be9817fbc3a25dba1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingAttack
+  attackDamage: 0
+  attackRange: 0
+  attackCooldown: 999
+  maxHealth: 150
+  attackZoneRadius: 1.5
+  arrowPrefab: {fileID: 0}
+  arrowSpeed: 8
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 0
+--- !u!114 &1526431515998258224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3829856077283798492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c897c351b9df7b21badc85c38bcc85fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingHealthBar
+  offset: {x: 0, y: 0.9, z: 0}
+  width: 1
+  height: 0.12
+  bgColor: {r: 0.1, g: 0.1, b: 0.1, a: 0.85}
+  healthyColor: {r: 0, g: 1, b: 0, a: 1}
+  criticalColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &8250233177689593293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3829856077283798492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a35f9fcd661840ae9a7036db50899b57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UnitProducer
+  units:
+  - unitName: Archer
+    prefab: {fileID: 3197458225947157001, guid: 6d7825709c09bde7ba5ca13c1fcac5e4, type: 3}
+    icon: {fileID: 0}
+    goldCost: 12
+    woodCost: 4
+    meatCost: 0
+    trainTime: 6
+  maxQueueSize: 5
+  spawnOffset: {x: 1.5, y: -0.5, z: 0}

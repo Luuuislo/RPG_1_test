@@ -98,6 +98,7 @@ public class BuildingLevel : MonoBehaviour
         pendingPoints += pointsPerLevelUp;
         GetComponent<BuildingAttack>()?.SyncStats(this);
         BuildingSelector.Instance?.RefreshUI();
+        LevelUpVFX.Spawn(transform.position);
     }
 
     public bool SpendPoint(StatType stat)

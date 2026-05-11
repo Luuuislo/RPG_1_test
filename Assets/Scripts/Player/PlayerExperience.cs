@@ -127,6 +127,7 @@ public class PlayerExperience : MonoBehaviour
         UiManager.Instance?.ShowLevelUpFeedback(Level);
         RefreshStatUI();
         player.FullHeal();
+        LevelUpVFX.Spawn(transform.position);
         if (levelUpParticles != null) levelUpParticles.Play();
         if (levelUpAura      != null) levelUpAura.Play();
         if (levelUpFlash     != null) levelUpFlash.Play();

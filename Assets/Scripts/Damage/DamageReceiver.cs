@@ -70,6 +70,8 @@ public class DamageReceiver : MonoBehaviour
         if (healthBarSlider != null)
             healthBarSlider.value = (float)currentHealth / maxHealth;
 
+        GetComponent<TreeShakeEffect>()?.Play();
+
         if (applyForceOrNot && applyForceOnDamage && rb2d != null)
         {
             if (freezeRotation)
@@ -168,6 +170,7 @@ public class DamageReceiver : MonoBehaviour
 
     IEnumerator RespawnAfterDelay()
     {
+        ClearPlayerTargetIfSelf();
         SetTreeActive(false);
 
         yield return new WaitForSeconds(respawnDelay);
@@ -209,8 +212,17 @@ public class DamageReceiver : MonoBehaviour
         }
     }
 
+    void ClearPlayerTargetIfSelf()
+    {
+        var pt = PlayerTargeting.Instance;
+        if (pt == null || pt.CurrentTarget == null) return;
+        if (pt.CurrentTarget.GetComponentInParent<DamageReceiver>() == this)
+            pt.ClearTarget();
+    }
+
     void Die()
     {
+        ClearPlayerTargetIfSelf();
         onDeath?.Invoke();
         Destroy(gameObject);
     }

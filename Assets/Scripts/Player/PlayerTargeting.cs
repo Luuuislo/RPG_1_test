@@ -2,62 +2,69 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 // Tibia-style target selection.
-// Right-click on enemy  → toggle target (marca / desmarca).
-// Right-click on empty  → clear target.
-// Tab                   → toggle auto-follow.
+// Right-click on enemy/resource → toggle target.
+// Right-click on empty         → clear target.
+// Tab                          → toggle auto-follow.
 public class PlayerTargeting : MonoBehaviour
 {
     public static PlayerTargeting Instance { get; private set; }
 
     [Header("Layers")]
     public LayerMask enemyLayers;
+    public LayerMask resourceLayers;
 
     [Header("Auto Follow")]
     public bool autoFollow = true;
 
-    [Header("Target Frame")]
-    public Color frameColor    = Color.red;
-    public float frameWidth    = 0.04f;
-    [Tooltip("Multiplier sobre el tamaño del sprite del enemigo (< 1 = más pequeño)")]
-    public float frameSizeMultiplier = 0.55f;
-    [Tooltip("Padding fijo añadido al radio calculado")]
-    public float framePadding        = 0.05f;
+    [Header("Target Shadow — Colors")]
+    public Color enemyColor    = Color.red;
+    public Color resourceColor = new Color(1f, 0.5f, 0f, 1f); // naranja
+
+    [Header("Target Shadow — Shape")]
+    public float shadowLineWidth = 0.04f;
+    [Tooltip("Radio horizontal de la elipse")]
+    public float shadowRadiusX   = 0.28f;
+    [Tooltip("Radio vertical (aplana la elipse para efecto sombra)")]
+    public float shadowRadiusY   = 0.09f;
+    [Tooltip("Ajuste vertical adicional desde los pies del sprite (negativo = más abajo)")]
+    public float feetOffsetY     = 0f;
+    [Range(8, 32)] public int shadowSegments = 20;
 
     public Transform CurrentTarget { get; private set; }
+    private bool _isResourceTarget;
 
-    private LineRenderer _frame;
-    private GameObject   _frameGO;
+    private LineRenderer _shadow;
+    private GameObject   _shadowGO;
 
     void Awake()
     {
         if (Instance == null) Instance = this;
         else { Destroy(this); return; }
-        BuildFrame();
+        BuildShadow();
     }
 
-    void BuildFrame()
+    void BuildShadow()
     {
-        _frameGO = new GameObject("PlayerTargetFrame");
-        _frameGO.transform.SetParent(transform);
+        _shadowGO = new GameObject("PlayerTargetShadow");
+        _shadowGO.transform.SetParent(transform);
 
-        _frame = _frameGO.AddComponent<LineRenderer>();
-        _frame.useWorldSpace   = true;
-        _frame.loop            = true;
-        _frame.positionCount   = 4;
-        _frame.widthMultiplier = frameWidth;
+        _shadow = _shadowGO.AddComponent<LineRenderer>();
+        _shadow.useWorldSpace   = true;
+        _shadow.loop            = true;
+        _shadow.positionCount   = shadowSegments;
+        _shadow.widthMultiplier = shadowLineWidth;
 
-        var mat = new Material(Shader.Find("Sprites/Default")) { color = frameColor };
-        _frame.material     = mat;
-        _frame.sortingOrder = 20;
+        _shadow.material     = new Material(Shader.Find("Sprites/Default")) { color = enemyColor };
+        _shadow.sortingOrder = 20;
 
-        _frameGO.SetActive(false);
+        _shadowGO.SetActive(false);
     }
 
     void Update()
     {
         HandleRightClick();
         HandleToggleKey();
-        RefreshFrame();
+        RefreshShadow();
     }
 
     void HandleRightClick()
@@ -71,18 +78,23 @@ public class PlayerTargeting : MonoBehaviour
                                new Vector3(screen.x, screen.y, -Camera.main.transform.position.z));
         worldPos.z = 0f;
 
-        Collider2D hit = Physics2D.OverlapPoint(worldPos, enemyLayers);
+        bool isResource = false;
+        Collider2D hit  = Physics2D.OverlapPoint(worldPos, enemyLayers);
+        if (hit == null)
+        {
+            hit        = Physics2D.OverlapPoint(worldPos, resourceLayers);
+            isResource = hit != null;
+        }
+
         if (hit != null && hit.GetComponentInParent<DamageReceiver>() != null)
         {
-            // Toggle: si ya es el target actual → desmarca
             if (CurrentTarget == hit.transform)
                 ClearTarget();
             else
-                SetTarget(hit.transform);
+                SetTarget(hit.transform, isResource);
             return;
         }
 
-        // Click en espacio vacío → limpia target
         if (Physics2D.OverlapPoint(worldPos) == null)
             ClearTarget();
     }
@@ -94,11 +106,11 @@ public class PlayerTargeting : MonoBehaviour
             autoFollow = !autoFollow;
     }
 
-    void RefreshFrame()
+    void RefreshShadow()
     {
         if (CurrentTarget == null)
         {
-            _frameGO.SetActive(false);
+            _shadowGO.SetActive(false);
             return;
         }
 
@@ -108,34 +120,43 @@ public class PlayerTargeting : MonoBehaviour
             return;
         }
 
-        _frameGO.SetActive(true);
+        _shadowGO.SetActive(true);
 
-        float s = GetHalfSize(CurrentTarget) * frameSizeMultiplier + framePadding;
-        Vector3 c = CurrentTarget.position;
-        _frame.SetPosition(0, new Vector3(c.x - s, c.y - s, 0f));
-        _frame.SetPosition(1, new Vector3(c.x + s, c.y - s, 0f));
-        _frame.SetPosition(2, new Vector3(c.x + s, c.y + s, 0f));
-        _frame.SetPosition(3, new Vector3(c.x - s, c.y + s, 0f));
+        // Pie del sprite = posición - mitad de altura del bounds
+        float halfH   = GetHalfHeight(CurrentTarget);
+        Vector3 pivot = CurrentTarget.position + new Vector3(0f, -halfH + feetOffsetY, 0f);
+
+        _shadow.material.color = _isResourceTarget ? resourceColor : enemyColor;
+
+        for (int i = 0; i < shadowSegments; i++)
+        {
+            float angle = (float)i / shadowSegments * Mathf.PI * 2f;
+            _shadow.SetPosition(i, new Vector3(
+                pivot.x + Mathf.Cos(angle) * shadowRadiusX,
+                pivot.y + Mathf.Sin(angle) * shadowRadiusY,
+                0f));
+        }
     }
 
-    static float GetHalfSize(Transform t)
+    static float GetHalfHeight(Transform t)
     {
         var sr = t.GetComponentInChildren<SpriteRenderer>();
-        if (sr != null) return Mathf.Max(sr.bounds.extents.x, sr.bounds.extents.y);
+        if (sr != null) return sr.bounds.extents.y;
         var col = t.GetComponent<Collider2D>();
-        if (col != null) return Mathf.Max(col.bounds.extents.x, col.bounds.extents.y);
+        if (col != null) return col.bounds.extents.y;
         return 0.4f;
     }
 
-    public void SetTarget(Transform t)
+    public void SetTarget(Transform t, bool isResource = false)
     {
-        CurrentTarget = t;
-        _frameGO.SetActive(true);
+        CurrentTarget     = t;
+        _isResourceTarget = isResource;
+        _shadowGO.SetActive(true);
     }
 
     public void ClearTarget()
     {
         CurrentTarget = null;
-        _frameGO.SetActive(false);
+        _shadowGO.SetActive(false);
     }
 }

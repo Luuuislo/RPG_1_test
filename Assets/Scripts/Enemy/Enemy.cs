@@ -124,6 +124,16 @@ public class Enemy : NPC
             }
         }
 
+        // También atacar unidades aliadas del jugador
+        Collider2D[] allCols = Physics2D.OverlapCircleAll(transform.position, chaseRange);
+        foreach (var c in allCols)
+        {
+            var ally = c.GetComponentInParent<AllyUnit>();
+            if (ally == null || !ally.IsAlive) continue;
+            float d = Vector3.Distance(transform.position, c.transform.position);
+            if (d < minDist) { minDist = d; closest = c.transform; }
+        }
+
         return closest;
     }
 
@@ -193,23 +203,18 @@ public class Enemy : NPC
 
         Vector2 attackDir = playerDirection == Vector2.zero ? Vector2.right : playerDirection.normalized;
 
-        // Damage only the committed target — no area splash
         BuildingAttack building = _currentTarget.GetComponentInParent<BuildingAttack>();
-        if (building != null)
-        {
-            building.TakeDamage(attackDamage);
-            return;
-        }
+        if (building != null) { building.TakeDamage(attackDamage); return; }
 
         DamageReceiver dr = _currentTarget.GetComponentInParent<DamageReceiver>();
-        if (dr != null)
-        {
-            dr.ApplyDamage(attackDamage, true, true, attackDir);
-            return;
-        }
+        if (dr != null) { dr.ApplyDamage(attackDamage, true, true, attackDir); return; }
 
         DamageReceiverPlayer drp = _currentTarget.GetComponentInParent<DamageReceiverPlayer>();
-        drp?.ApplyDamage(attackDamage, attackDir);
+        if (drp != null) { drp.ApplyDamage(attackDamage, attackDir); return; }
+
+        // Ally units
+        AllyUnit ally = _currentTarget.GetComponentInParent<AllyUnit>();
+        ally?.TakeDamage(attackDamage);
     }
 
     void OnDrawGizmosSelected()
