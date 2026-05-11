@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7147231826151497961}
   - component: {fileID: 3496151963348519781}
   - component: {fileID: 130958043013248357}
+  - component: {fileID: -5783737822530051650}
   m_Layer: 7
   m_Name: Tree3_0
   m_TagString: Untagged
@@ -190,3 +191,19 @@ MonoBehaviour:
   stumpOffset: {x: 0, y: -1.1, z: 0}
   respawnAfterDeath: 1
   respawnDelay: 10
+--- !u!114 &-5783737822530051650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3944766092616128768}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: NavMeshPlus::NavMeshPlus.Components.NavMeshModifier
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff

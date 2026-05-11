@@ -272,7 +272,7 @@ MonoBehaviour:
   units:
   - unitName: Monk
     prefab: {fileID: 280289780340027731, guid: d8278c4fb20aebff7825478947e4e894, type: 3}
-    icon: {fileID: 0}
+    icon: {fileID: 2903848411162822477, guid: 6d01f34a7aa999f039fef044065225a4, type: 3}
     goldCost: 18
     woodCost: 5
     meatCost: 0

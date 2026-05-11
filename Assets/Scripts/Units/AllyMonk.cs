@@ -79,8 +79,11 @@ public class AllyMonk : AllyUnit
         _healTarget.HealDamage(healAmount);
         if (healEffectPrefab != null)
         {
-            var fx = Instantiate(healEffectPrefab, _healTarget.transform.position, Quaternion.identity);
-            Destroy(fx, 0.95f); // 11 frames @ 12 fps
+            var pos = new Vector3(_healTarget.transform.position.x, _healTarget.transform.position.y, 0f);
+            var fx  = Instantiate(healEffectPrefab, pos, Quaternion.identity);
+            var sr  = fx.GetComponent<SpriteRenderer>();
+            if (sr != null) sr.sortingOrder = 5;
+            Destroy(fx, 1f);
         }
     }
 

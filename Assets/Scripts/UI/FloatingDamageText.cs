@@ -14,10 +14,19 @@ public class FloatingDamageText : MonoBehaviour
 
     public void Setup(int damage)
     {
-        tmp.text      = damage.ToString();
-        tmp.color     = textColor;
+        tmp.text         = damage.ToString();
+        tmp.color        = textColor;
         tmp.outlineWidth = 0.25f;
         tmp.outlineColor = new Color32(60, 0, 0, 255);
+        Destroy(gameObject, fadeDuration);
+    }
+
+    public void Setup(int amount, Color color)
+    {
+        tmp.text         = amount.ToString();
+        tmp.color        = color;
+        tmp.outlineWidth = 0.2f;
+        tmp.outlineColor = new Color32(0, 60, 0, 255);
         Destroy(gameObject, fadeDuration);
     }
 

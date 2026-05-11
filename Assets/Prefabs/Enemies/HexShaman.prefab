@@ -307,7 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bea236908abb7ec2aafea576e5e4aa64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamageReceiver
-  applyForceOnDamage: 0
+  applyForceOnDamage: 1
   freezeRotation: 1
   forceImpulse: 0
   maxHealth: 30

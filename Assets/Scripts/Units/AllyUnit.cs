@@ -171,6 +171,7 @@ public class AllyUnit : MonoBehaviour
         if (_state == AllyState.Dead) return;
         CurrentHp = Mathf.Min(CurrentHp + amount, maxHp);
         _healthBar?.UpdateHealth((int)CurrentHp, (int)maxHp);
+        SpawnHealText((int)amount);
     }
 
     void SpawnDamageText(int amount)
@@ -181,6 +182,16 @@ public class AllyUnit : MonoBehaviour
         var pos = transform.position + Vector3.up * 0.5f;
         Instantiate(_damageTextPrefab, pos, Quaternion.identity)
             .GetComponent<FloatingDamageText>()?.Setup(amount);
+    }
+
+    void SpawnHealText(int amount)
+    {
+        if (_damageTextPrefab == null)
+            _damageTextPrefab = Resources.Load<GameObject>("FloatingDamageText");
+        if (_damageTextPrefab == null) return;
+        var pos = transform.position + Vector3.up * 0.5f;
+        Instantiate(_damageTextPrefab, pos, Quaternion.identity)
+            .GetComponent<FloatingDamageText>()?.Setup(amount, Color.green);
     }
 
     protected virtual void Die()

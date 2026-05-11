@@ -13,6 +13,10 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: -3406576464956584048, guid: 06dbaba93dfa2a4c19e3b1e8d5e334e7, type: 3}
+      propertyPath: applyForceOnDamage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -3406576464956584048, guid: 06dbaba93dfa2a4c19e3b1e8d5e334e7, type: 3}
       propertyPath: itemDrops.Array.size
       value: 3
       objectReference: {fileID: 0}
