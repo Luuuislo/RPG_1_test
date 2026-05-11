@@ -24,8 +24,7 @@ public class UnitProducerUI : MonoBehaviour
     [Header("Training Progress")]
     public GameObject    trainingSection;
     public Text          trainingLabel;
-    public RectTransform progressFill;
-    public float         progressMaxWidth = 190f;
+    public RectTransform progressFill;   // fill usa anchorMax.x para ser responsivo
     public Button        cancelButton;
 
     [Header("Queue (5 slots)")]
@@ -139,9 +138,10 @@ public class UnitProducerUI : MonoBehaviour
             if (trainingLabel != null)
                 trainingLabel.text = $"Entrenando: {_producer.CurrentUnit.unitName}";
             if (progressFill != null)
-                progressFill.sizeDelta = new Vector2(
-                    progressMaxWidth * _producer.TrainProgress,
-                    progressFill.sizeDelta.y);
+            {
+                progressFill.anchorMax = new Vector2(_producer.TrainProgress, 1f);
+                progressFill.offsetMin = progressFill.offsetMax = Vector2.zero;
+            }
         }
 
         // Queue slots

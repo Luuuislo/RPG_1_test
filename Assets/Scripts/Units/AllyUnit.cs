@@ -70,7 +70,7 @@ public class AllyUnit : MonoBehaviour
         UpdateFacing();
     }
 
-    void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
         if (_agent != null && _agent.isOnNavMesh)
             _agent.isStopped = _isAttacking || _state == AllyState.Attacking || _state == AllyState.Dead;

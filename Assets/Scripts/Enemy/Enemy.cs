@@ -30,6 +30,13 @@ public class Enemy : NPC
     protected EnemyState currentState = EnemyState.Patrolling;
     protected enum EnemyState { Patrolling, Chasing, Returning }
 
+    private NavMeshPath _navPath;
+    private Vector3     _cachedDest;
+    private float       _nextPathUpdate;
+    private const float PathUpdateInterval          = 0.2f;
+    private const float DestChangedThreshold        = 0.4f;
+    private const float FallbackSampleStep          = 0.5f;
+
     protected override void Start()
     {
         useSkinSystem = false;
@@ -37,6 +44,7 @@ public class Enemy : NPC
         base.Start();
         if (spawnPoint != null)
             patrolCenter = spawnPoint.position;
+        _navPath = new NavMeshPath();
     }
 
     protected override void Update()
@@ -79,7 +87,7 @@ public class Enemy : NPC
                 }
                 else
                 {
-                    agent.SetDestination(GetDestinationFor(_currentTarget));
+                    UpdateChaseDestination();
                 }
                 break;
 
@@ -89,6 +97,49 @@ public class Enemy : NPC
                     EnterPatrolState();
                 break;
         }
+    }
+
+    void UpdateChaseDestination()
+    {
+        Vector3 dest = GetDestinationFor(_currentTarget);
+
+        bool destMoved = Vector3.Distance(dest, _cachedDest) > DestChangedThreshold;
+        if (!destMoved && Time.time < _nextPathUpdate) return;
+
+        _nextPathUpdate = Time.time + PathUpdateInterval;
+        _cachedDest    = dest;
+
+        // Camino directo completo → usarlo
+        if (agent.CalculatePath(dest, _navPath) && _navPath.status == NavMeshPathStatus.PathComplete)
+        {
+            agent.SetPath(_navPath);
+            return;
+        }
+
+        // Camino bloqueado o parcial → buscar el punto alcanzable más cercano al target
+        Vector3 best = FindClosestReachablePointToward(dest);
+        if (agent.CalculatePath(best, _navPath) && _navPath.status == NavMeshPathStatus.PathComplete)
+            agent.SetPath(_navPath);
+        else
+            agent.SetDestination(best); // último recurso
+    }
+
+    // Avanza desde la posición actual hacia el destino en pasos de FallbackSampleStep
+    // y devuelve el punto más lejano con un camino completo en el NavMesh.
+    Vector3 FindClosestReachablePointToward(Vector3 dest)
+    {
+        Vector3 dir   = (dest - transform.position).normalized;
+        float   total = Vector3.Distance(transform.position, dest);
+        int     steps = Mathf.CeilToInt(total / FallbackSampleStep);
+
+        for (int i = steps; i > 0; i--)
+        {
+            Vector3 candidate = transform.position + dir * (i * FallbackSampleStep);
+            if (!NavMesh.SamplePosition(candidate, out NavMeshHit hit, 1f, NavMesh.AllAreas)) continue;
+            if (agent.CalculatePath(hit.position, _navPath) && _navPath.status == NavMeshPathStatus.PathComplete)
+                return hit.position;
+        }
+        return transform.position;
     }
 
     Vector3 GetDestinationFor(Transform target)
