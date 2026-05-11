@@ -117,11 +117,23 @@ public static class CreateAllyPrefabs
     {
         string path = $"{AnimOut}/{ctrlName}.controller";
 
-        // Borrar el asset existente para evitar state machine corrompido
-        if (AssetDatabase.LoadAssetAtPath<AnimatorController>(path) != null)
-            AssetDatabase.DeleteAsset(path);
-
-        var ctrl = AnimatorController.CreateAnimatorControllerAtPath(path);
+        AnimatorController ctrl;
+        var existing = AssetDatabase.LoadAssetAtPath<AnimatorController>(path);
+        if (existing != null)
+        {
+            // Reusar el asset para preservar el GUID (los prefabs no pierden la referencia)
+            ctrl = existing;
+            // Limpiar parámetros y capas manualmente
+            while (ctrl.parameters.Length > 0) ctrl.RemoveParameter(0);
+            while (ctrl.layers.Length > 1)     ctrl.RemoveLayer(1);
+            var sm0 = ctrl.layers[0].stateMachine;
+            foreach (var s in sm0.states)     sm0.RemoveState(s.state);
+            foreach (var t in sm0.anyStateTransitions) sm0.RemoveAnyStateTransition(t);
+        }
+        else
+        {
+            ctrl = AnimatorController.CreateAnimatorControllerAtPath(path);
+        }
 
         // Parámetros
         ctrl.AddParameter("isRunning", AnimatorControllerParameterType.Bool);
@@ -195,9 +207,14 @@ public static class CreateAllyPrefabs
 
         AnimationUtility.SetObjectReferenceCurve(clip, binding, keys);
 
-        // Reemplazar asset existente
-        if (AssetDatabase.LoadAssetAtPath<AnimationClip>(outPath) != null)
-            AssetDatabase.DeleteAsset(outPath);
+        // Preservar GUID: sobreescribir en lugar de borrar+crear
+        var existingClip = AssetDatabase.LoadAssetAtPath<AnimationClip>(outPath);
+        if (existingClip != null)
+        {
+            EditorUtility.CopySerialized(clip, existingClip);
+            EditorUtility.SetDirty(existingClip);
+            return existingClip;
+        }
         AssetDatabase.CreateAsset(clip, outPath);
         return clip;
     }
