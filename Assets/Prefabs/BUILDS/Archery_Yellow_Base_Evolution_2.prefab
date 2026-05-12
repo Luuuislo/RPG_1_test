@@ -272,7 +272,7 @@ MonoBehaviour:
   units:
   - unitName: Archer
     prefab: {fileID: 3197458225947157001, guid: 6d7825709c09bde7ba5ca13c1fcac5e4, type: 3}
-    icon: {fileID: 0}
+    icon: {fileID: -216525426165923654, guid: c6ef413244d5501329537ec6d9c17a0f, type: 3}
     goldCost: 12
     woodCost: 4
     meatCost: 0

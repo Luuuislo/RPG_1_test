@@ -45,6 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpawnPoint
   enemyPrefab: {fileID: 6651328773801274524, guid: 3c652d32f337f3f1db96e8e242878c7e, type: 3}
-  spawnCount: 1
+  spawnCount: 5
   respawnDelay: 120
   patrolRadius: 4

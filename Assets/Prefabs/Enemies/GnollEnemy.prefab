@@ -264,6 +264,7 @@ MonoBehaviour:
   maxHealth: 3
   healthBarSlider: {fileID: 0}
   xpReward: 10
+  enemyType: GnollEnemy
   itemDrops:
   - prefab: {fileID: 647661227858094025, guid: 52e3d21043f8865f58fa267568d80d79, type: 3}
     minAmount: 1

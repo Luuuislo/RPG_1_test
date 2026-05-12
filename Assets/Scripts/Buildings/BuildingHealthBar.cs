@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 // World-space health bar rendered above a building.
 // Uses RectTransform width scaling — no sprite required.
@@ -17,10 +18,14 @@ public class BuildingHealthBar : MonoBehaviour
     public Color healthyColor  = Color.green;
     public Color criticalColor = Color.red;
 
+    [Header("Level Label")]
+    public float levelFontSize = 2f;
+
     private RectTransform _fillRT;
     private Image         _fillImg;
     private GameObject    _canvasGO;
     private float         _maxWidth;
+    private TextMeshPro   _levelTxt;
 
     void Awake()
     {
@@ -59,6 +64,20 @@ public class BuildingHealthBar : MonoBehaviour
         _fillRT.sizeDelta   = new Vector2(width, 0f); // full at start
         _fillImg            = fillGO.AddComponent<Image>();
         _fillImg.color      = healthyColor;
+
+        // Level label — aparece a la izquierda de la barra si se llama UpdateLevel()
+        var lvlGO = new GameObject("LevelLabel");
+        lvlGO.transform.SetParent(transform, false);
+        lvlGO.transform.localPosition = offset + new Vector3(-(width * 0.5f + 0.28f), 0f, 0f);
+        _levelTxt               = lvlGO.AddComponent<TextMeshPro>();
+        _levelTxt.fontSize      = levelFontSize;
+        _levelTxt.alignment     = TextAlignmentOptions.Center;
+        _levelTxt.color         = Color.white;
+        _levelTxt.outlineWidth  = 0.25f;
+        _levelTxt.outlineColor  = new Color32(0, 0, 0, 200);
+        var lvlRT               = lvlGO.GetComponent<RectTransform>();
+        lvlRT.sizeDelta         = new Vector2(0.55f, 0.22f);
+        lvlGO.SetActive(false);   // oculto hasta que se llame UpdateLevel
     }
 
     public void UpdateHealth(int current, int max)
@@ -67,6 +86,13 @@ public class BuildingHealthBar : MonoBehaviour
         float t             = Mathf.Clamp01((float)current / max);
         _fillRT.sizeDelta   = new Vector2(_maxWidth * t, 0f);
         _fillImg.color      = Color.Lerp(criticalColor, healthyColor, t);
+    }
+
+    public void UpdateLevel(int level)
+    {
+        if (_levelTxt == null) return;
+        _levelTxt.gameObject.SetActive(true);
+        _levelTxt.text = $"Lv.{level}";
     }
 
     public void HideCanvas()

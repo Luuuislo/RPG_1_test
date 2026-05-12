@@ -11,7 +11,7 @@ public class UnitEntry
     public int        goldCost  = 10;
     public int        woodCost  = 0;
     public int        meatCost  = 0;
-    public float      trainTime = 5f;
+    public float      trainTime = 10f;
 }
 
 // Añadir a Barracks / Archery / Monastery.
@@ -38,6 +38,9 @@ public class UnitProducer : MonoBehaviour
     public System.Action onStateChanged;
 
     private readonly List<UnitEntry> _queue = new List<UnitEntry>();
+    private BuildingLevel _bl;
+
+    void Awake() => _bl = GetComponent<BuildingLevel>();
 
     // ── API pública ──────────────────────────────────────────────────────
 
@@ -90,11 +93,13 @@ public class UnitProducer : MonoBehaviour
             TrainProgress = 0f;
             onStateChanged?.Invoke();
 
+            float speed         = _bl != null ? Mathf.Max(_bl.currentAtkSpeed, 0.1f) : 1f;
+            float effectiveTime = Mathf.Max(CurrentUnit.trainTime / speed, 3f); // mínimo 3s
             float elapsed = 0f;
-            while (elapsed < CurrentUnit.trainTime)
+            while (elapsed < effectiveTime)
             {
                 elapsed       += Time.deltaTime;
-                TrainProgress  = Mathf.Clamp01(elapsed / CurrentUnit.trainTime);
+                TrainProgress  = Mathf.Clamp01(elapsed / effectiveTime);
                 onStateChanged?.Invoke();
                 yield return null;
             }

@@ -89,6 +89,11 @@ public class BuildingLevel : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        GetComponent<BuildingHealthBar>()?.UpdateLevel(currentLevel);
+    }
+
     // ── Actions ────────────────────────────────────────────────
     public void Upgrade()
     {
@@ -97,6 +102,7 @@ public class BuildingLevel : MonoBehaviour
         currentLevel++;
         pendingPoints += pointsPerLevelUp;
         GetComponent<BuildingAttack>()?.SyncStats(this);
+        GetComponent<BuildingHealthBar>()?.UpdateLevel(currentLevel);
         BuildingSelector.Instance?.RefreshUI();
         LevelUpVFX.Spawn(transform.position);
     }

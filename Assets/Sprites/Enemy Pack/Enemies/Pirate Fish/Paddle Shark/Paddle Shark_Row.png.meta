@@ -146,12 +146,12 @@ TextureImporter:
       name: Paddle Shark_Row_0
       rect:
         serializedVersion: 2
-        x: 61
-        y: 34
-        width: 74
-        height: 96
+        x: 0
+        y: 0
+        width: 192
+        height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -168,12 +168,12 @@ TextureImporter:
       name: Paddle Shark_Row_1
       rect:
         serializedVersion: 2
-        x: 252
-        y: 15
-        width: 75
-        height: 113
+        x: 192
+        y: 0
+        width: 192
+        height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -190,12 +190,12 @@ TextureImporter:
       name: Paddle Shark_Row_2
       rect:
         serializedVersion: 2
-        x: 441
-        y: 9
-        width: 74
-        height: 117
+        x: 384
+        y: 0
+        width: 192
+        height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -212,12 +212,12 @@ TextureImporter:
       name: Paddle Shark_Row_3
       rect:
         serializedVersion: 2
-        x: 616
-        y: 10
-        width: 88
-        height: 117
+        x: 576
+        y: 0
+        width: 192
+        height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -234,12 +234,12 @@ TextureImporter:
       name: Paddle Shark_Row_4
       rect:
         serializedVersion: 2
-        x: 804
-        y: 16
-        width: 95
-        height: 113
+        x: 768
+        y: 0
+        width: 192
+        height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -256,12 +256,12 @@ TextureImporter:
       name: Paddle Shark_Row_5
       rect:
         serializedVersion: 2
-        x: 996
-        y: 24
-        width: 12
-        height: 16
+        x: 960
+        y: 0
+        width: 192
+        height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -278,12 +278,12 @@ TextureImporter:
       name: Paddle Shark_Row_6
       rect:
         serializedVersion: 2
-        x: 1018
-        y: 32
-        width: 74
-        height: 98
+        x: 1152
+        y: 0
+        width: 192
+        height: 192
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -296,99 +296,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Paddle Shark_Row_7
-      rect:
-        serializedVersion: 2
-        x: 1188
-        y: 19
-        width: 17
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0e7adf59bfd2d15e0800000000000000
-      internalID: -1937341706122975264
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Paddle Shark_Row_8
-      rect:
-        serializedVersion: 2
-        x: 1211
-        y: 34
-        width: 74
-        height: 96
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 77cb0f4d54495e410800000000000000
-      internalID: 1505772678071499895
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Paddle Shark_Row_9
-      rect:
-        serializedVersion: 2
-        x: 1009
-        y: 17
-        width: 9
-        height: 9
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 54473ef47bd9c7160800000000000000
-      internalID: 7024662929436013637
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Paddle Shark_Row_10
-      rect:
-        serializedVersion: 2
-        x: 1023
-        y: 22
-        width: 7
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 0638e15a5637f07b0800000000000000
-      internalID: -5255855359718948000
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 89de9b9166eeff176852ff8939b9d845
     internalID: 0
     vertices: []
     indices: 
@@ -396,19 +308,17 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":7.0,"y":1.0},"gridSpriteSize":{"x":192.0,"y":192.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Paddle Shark_Row_0: -9190844147007512602
       Paddle Shark_Row_1: 8049800016777970620
-      Paddle Shark_Row_10: -5255855359718948000
       Paddle Shark_Row_2: -8788979421425919851
       Paddle Shark_Row_3: -4210069112396004554
       Paddle Shark_Row_4: -6949650851182192016
       Paddle Shark_Row_5: 2359908997297755559
       Paddle Shark_Row_6: -4313818761845970337
-      Paddle Shark_Row_7: -1937341706122975264
-      Paddle Shark_Row_8: 1505772678071499895
-      Paddle Shark_Row_9: 7024662929436013637
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

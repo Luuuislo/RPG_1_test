@@ -21,7 +21,8 @@ public class BuildingAttack : MonoBehaviour
     [Header("Targeting")]
     public LayerMask enemyLayers;
 
-    private int   _currentHealth;
+    public  int CurrentHealth => _currentHealth;
+    private int _currentHealth;
     private float _lastAttackTime = -999f;
     private static GameObject _damageTextPrefab;
 

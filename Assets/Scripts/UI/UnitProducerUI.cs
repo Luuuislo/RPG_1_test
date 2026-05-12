@@ -30,6 +30,11 @@ public class UnitProducerUI : MonoBehaviour
     [Header("Queue (5 slots)")]
     public Image[] queueSlots = new Image[5];
 
+    [Header("Building Stats Display")]
+    public Text   hpText;
+    public Text   trainSpeedText;
+    public Text[] trainTimeTexts = new Text[3];
+
     [Header("Building Level Actions")]
     public Button upgradeButton;
     public Button evolveButton;
@@ -81,6 +86,7 @@ public class UnitProducerUI : MonoBehaviour
         RefreshHeader();
         RefreshUnitSlots();
         RefreshTraining();
+        RefreshBuildingStats();
         RefreshBuildingActions();
     }
 
@@ -96,6 +102,7 @@ public class UnitProducerUI : MonoBehaviour
     {
         if (_bl == null) return;
         RefreshHeader();
+        RefreshBuildingStats();
         RefreshBuildingActions();
     }
 
@@ -157,6 +164,35 @@ public class UnitProducerUI : MonoBehaviour
         }
     }
 
+    void RefreshBuildingStats()
+    {
+        if (_bl == null) return;
+
+        // HP del edificio
+        if (hpText != null)
+        {
+            var ba = _bl.GetComponent<BuildingAttack>();
+            hpText.text = ba != null
+                ? $"HP  {ba.CurrentHealth}/{ba.maxHealth}"
+                : $"HP  {Mathf.RoundToInt(_bl.currentHp)}";
+        }
+
+        // Velocidad de producción
+        if (trainSpeedText != null)
+            trainSpeedText.text = $"Vel  x{_bl.currentAtkSpeed:F1}";
+
+        // Tiempo de entrenamiento por unidad (dividido por velocidad)
+        float speed = Mathf.Max(_bl.currentAtkSpeed, 0.1f);
+        for (int i = 0; i < trainTimeTexts.Length; i++)
+        {
+            if (trainTimeTexts[i] == null) continue;
+            bool active = _producer?.units != null && i < _producer.units.Length;
+            trainTimeTexts[i].text = active
+                ? $"⏱ {(_producer.units[i].trainTime / speed):F0}s"
+                : "";
+        }
+    }
+
     void RefreshBuildingActions()
     {
         if (_bl == null) return;
@@ -177,10 +213,10 @@ public class UnitProducerUI : MonoBehaviour
     // ── Actions ──────────────────────────────────────────────────────────
 
     void OnTrain(int idx)       => _producer?.TryEnqueue(idx);
-    void OnUpgrade()            { _bl?.Upgrade(); RefreshHeader(); RefreshBuildingActions(); }
+    void OnUpgrade()            { _bl?.Upgrade(); RefreshHeader(); RefreshBuildingStats(); RefreshBuildingActions(); }
     void OnEvolve()             => _bl?.Evolve();
     void OnMove()               { if (_bl != null) BuildingSelector.Instance?.StartMove(_bl); }
-    void OnSpendPoint(StatType s) { _bl?.SpendPoint(s); RefreshBuildingActions(); }
+    void OnSpendPoint(StatType s) { _bl?.SpendPoint(s); RefreshBuildingStats(); RefreshBuildingActions(); }
 
     static string FormatCost(UnitEntry e)
     {

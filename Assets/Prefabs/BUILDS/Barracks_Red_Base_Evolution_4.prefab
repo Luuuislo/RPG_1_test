@@ -272,14 +272,14 @@ MonoBehaviour:
   units:
   - unitName: Warrior
     prefab: {fileID: 272594053065745647, guid: 52a2c004e24ed7949a7be28dca638c7a, type: 3}
-    icon: {fileID: 0}
+    icon: {fileID: -4216416322996058909, guid: 4f165c71223f93638b2e0d95f950768f, type: 3}
     goldCost: 15
     woodCost: 4
     meatCost: 0
     trainTime: 6
   - unitName: Lancer
     prefab: {fileID: 5320302858138627375, guid: 58ce33a8d888c6c9984cbd3b53527582, type: 3}
-    icon: {fileID: 0}
+    icon: {fileID: -1558449054324165317, guid: 6a11194c5fa48cd369aa3d3eec008532, type: 3}
     goldCost: 15
     woodCost: 4
     meatCost: 0

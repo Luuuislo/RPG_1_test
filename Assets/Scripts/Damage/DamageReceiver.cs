@@ -22,6 +22,10 @@ public class DamageReceiver : MonoBehaviour
     [Header("XP Reward")]
     public int xpReward = 10;
 
+    [Header("Kill Tracking")]
+    [Tooltip("Nombre del tipo de enemigo para rastrear en quests. Dejar vacío si no aplica.")]
+    public string enemyType = "";
+
     [Header("Drop")]
     public DropEntry[] itemDrops;
     public DropDisplaySettings dropDisplaySettings;
@@ -92,6 +96,7 @@ public class DamageReceiver : MonoBehaviour
         if (currentHealth <= 0)
         {
             isDead = true;
+            KillTracker.RegisterKill(enemyType);
             GrantXpToPlayer();
             DropItem();
             SpawnStump();

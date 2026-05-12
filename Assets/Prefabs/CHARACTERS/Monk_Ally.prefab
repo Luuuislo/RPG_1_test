@@ -218,15 +218,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AllyMonk
   maxHp: 70
   attackDamage: 0
-  attackRange: 1.8
+  attackRange: 3
   detectRange: 0
-  attackCooldown: 2.5
+  attackCooldown: 3
   moveSpeed: 2.8
   enemyLayers:
     serializedVersion: 2
     m_Bits: 0
   healAmount: 30
-  healRange: 1.8
+  healRange: 3
   healDetectRange: 10
   healEffectPrefab: {fileID: 7424649409437908518, guid: af4d459e4d53706a180391dfeed0ec01, type: 3}
 --- !u!114 &7832550329885232067

@@ -1,5 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 // Tibia-style target selection.
 // Right-click on enemy/resource → toggle target.
@@ -71,7 +74,7 @@ public class PlayerTargeting : MonoBehaviour
     {
         var mouse = Mouse.current;
         if (mouse == null || !mouse.rightButton.wasPressedThisFrame) return;
-        if (UnityEngine.EventSystems.EventSystem.current?.IsPointerOverGameObject() == true) return;
+        if (IsPointerOverUI()) return;
 
         Vector2 screen   = mouse.position.ReadValue();
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(
@@ -158,5 +161,19 @@ public class PlayerTargeting : MonoBehaviour
     {
         CurrentTarget = null;
         _shadowGO.SetActive(false);
+    }
+
+    // Devuelve true solo si el puntero está sobre un elemento UI real (Image/Text),
+    // ignorando los hits del Physics2D Raycaster sobre objetos del mundo.
+    static bool IsPointerOverUI()
+    {
+        var es = EventSystem.current;
+        if (es == null) return false;
+        var data = new PointerEventData(es) { position = Mouse.current.position.ReadValue() };
+        var results = new List<RaycastResult>();
+        es.RaycastAll(data, results);
+        foreach (var r in results)
+            if (r.gameObject.GetComponent<Graphic>() != null) return true;
+        return false;
     }
 }
