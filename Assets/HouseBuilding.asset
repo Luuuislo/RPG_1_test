@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdf453d6f125db519a0d19e913cbcd29, type: 3}
+  m_Name: HouseBuilding
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingUnlockData
+  buildingName: House
+  icon: {fileID: -5391499930902814504, guid: 571f4ce39b92f1d579473599b24851ff, type: 3}
+  prefab: {fileID: 7760440855715354279, guid: aefe20d7f2c7c02619fbf84f25c2e550, type: 3}
+  maxCount: 1
+  requiredLevel: 1
+  goldCost: 1000
+  woodCost: 1000
+  meatCost: 1000
+  killRequirements:
+  - enemyType: EnemyBear
+    count: 3
+  requiredBuildings:
+  - building: {fileID: 0}
+    count: 1
+  description: Completa las siguientes misiones para la casa
+  lockedDescription: "Habla con Pawn para desbloquear esta construcci\xF3n."

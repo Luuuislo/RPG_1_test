@@ -7,6 +7,10 @@ public class BuildingPlacer : MonoBehaviour
     [Header("Building Prefabs")]
     public GameObject[] buildingPrefabs;
 
+    [Header("Unlock Data (mismo orden que buildingPrefabs)")]
+    [Tooltip("Uno por cada prefab. Dejar null = sin restricción.")]
+    public BuildingUnlockData[] unlockData;
+
     [Header("Placement")]
     public LayerMask blockingLayers;
     public float     snapSize = 0.5f;
@@ -24,6 +28,7 @@ public class BuildingPlacer : MonoBehaviour
     private Vector2          _buildingOffset;
     private GameObject       _selectedPrefab;
     private bool             _isPlacing;
+    private int              _selectedPrefabIndex = -1;
 
     // Building being moved (null when placing new)
     private BuildingLevel    _movingBuilding;
@@ -69,11 +74,13 @@ public class BuildingPlacer : MonoBehaviour
 
             var btn = slot.GetComponent<Button>() ?? slot.gameObject.AddComponent<Button>();
             btn.onClick.RemoveAllListeners();
-            btn.onClick.AddListener(() => SelectBuilding(buildingPrefabs[captured]));
+            btn.onClick.AddListener(() => TrySelectBuilding(captured));
 
             var label = slot.GetComponentInChildren<TextMeshProUGUI>();
             if (label != null)
                 label.text = prefab.name.Replace("_", " ").Replace("Blue Base", "").Trim();
+
+            RefreshSlotState(slot, i);
         }
     }
 
@@ -125,6 +132,23 @@ public class BuildingPlacer : MonoBehaviour
         Vector2 center = (Vector2)_ghost.transform.position + _buildingOffset;
         Collider2D hit = Physics2D.OverlapBox(center, _buildingSize * 0.8f, 0f, blockingLayers);
         return hit == null;
+    }
+
+    void TrySelectBuilding(int index)
+    {
+        if (index < 0 || index >= buildingPrefabs.Length) return;
+        var data = (unlockData != null && index < unlockData.Length) ? unlockData[index] : null;
+        var mgr  = BuildingUnlockManager.Instance;
+
+        if (data != null && mgr != null && !mgr.CanBuild(data))
+        {
+            buildMenuPanel?.SetActive(false);
+            PawnShopUI.Instance?.OpenWithBuilding(data);
+            return;
+        }
+
+        _selectedPrefabIndex = index;
+        SelectBuilding(buildingPrefabs[index]);
     }
 
     public void SelectBuilding(GameObject prefab)
@@ -181,7 +205,12 @@ public class BuildingPlacer : MonoBehaviour
             var go     = Instantiate(_selectedPrefab, _ghost.transform.position, Quaternion.identity);
             var parent = GameObject.Find("---BUILDS---");
             if (parent != null) go.transform.SetParent(parent.transform);
+
+            // Register placed count
+            if (_selectedPrefabIndex >= 0 && unlockData != null && _selectedPrefabIndex < unlockData.Length)
+                BuildingUnlockManager.Instance?.RegisterPlaced(unlockData[_selectedPrefabIndex]);
         }
+        _selectedPrefabIndex = -1;
         CancelPlacement();
     }
 
@@ -238,6 +267,50 @@ public class BuildingPlacer : MonoBehaviour
                    ?? 5f;
         ri.SetRadius(range);
         ri.Show();
+    }
+
+    public void RefreshBuildButtons()
+    {
+        if (buildMenuPanel == null || buildingPrefabs == null) return;
+
+        var slots = new System.Collections.Generic.List<Transform>();
+        Transform iconsRoot = buildMenuPanel.transform.Find("--Icons--");
+        if (iconsRoot != null)
+            foreach (Transform child in iconsRoot) slots.Add(child);
+        else
+            foreach (Transform child in buildMenuPanel.transform)
+                if (child.name.StartsWith("BuildMenuBackground")) slots.Add(child);
+
+        for (int i = 0; i < slots.Count && i < buildingPrefabs.Length; i++)
+            RefreshSlotState(slots[i], i);
+    }
+
+    void RefreshSlotState(Transform slot, int index)
+    {
+        var data = (unlockData != null && index < unlockData.Length) ? unlockData[index] : null;
+        var mgr  = BuildingUnlockManager.Instance;
+        var btn  = slot.GetComponent<Button>();
+
+        if (data == null || mgr == null) { if (btn != null) btn.interactable = true; return; }
+
+        bool canBuild = mgr.CanBuild(data);
+        if (btn != null) btn.interactable = canBuild;
+
+        // Show lock / count suffix on label
+        var label = slot.GetComponentInChildren<TextMeshProUGUI>();
+        if (label == null) return;
+
+        string baseName = buildingPrefabs[index].name.Replace("_", " ").Replace("Blue Base", "").Trim();
+        if (!mgr.IsUnlocked(data))
+            label.text = $"{baseName}\n🔒";
+        else if (data.maxCount > 0 && mgr.GetPlacedCount(data) >= data.maxCount)
+            label.text = $"{baseName}\nMAX";
+        else
+        {
+            int placed = mgr.GetPlacedCount(data);
+            int max    = data.maxCount > 0 ? data.maxCount : 99;
+            label.text = $"{baseName}\n{placed}/{max}";
+        }
     }
 
     void ToggleMenu()

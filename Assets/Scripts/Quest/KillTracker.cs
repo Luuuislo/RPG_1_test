@@ -28,6 +28,7 @@ public class KillTracker : MonoBehaviour
         Instance._kills[enemyType] = count + 1;
 
         WaterQuestUI.Instance?.RefreshRequirements();
+        PawnShopUI.Instance?.RefreshCards();
     }
 
     public int GetCount(string enemyType)

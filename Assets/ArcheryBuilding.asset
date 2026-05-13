@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdf453d6f125db519a0d19e913cbcd29, type: 3}
+  m_Name: ArcheryBuilding
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingUnlockData
+  buildingName: Archery
+  icon: {fileID: 1765351576224072635, guid: aa468bca04fb788189bd7eb2fc81877e, type: 3}
+  prefab: {fileID: 3436322805946939627, guid: 3738415f35a53f2e0b976017ad1be2a4, type: 3}
+  maxCount: 1
+  prerequisite: {fileID: 11400000, guid: 2941b0fb5b8018682ba9667e6f798fb9, type: 2}
+  capacityExpansions: []
+  requiredLevel: 1
+  goldCost: 1000
+  woodCost: 1000
+  meatCost: 1000
+  killRequirements:
+  - enemyType: EnemyBear
+    count: 3
+  requiredBuildings:
+  - building: {fileID: 0}
+    count: 1
+  pawnDialogue: "Los arqueros son devastadores desde la distancia. Un cuartel de
+    arqueros puede detener oleadas enteras antes de que lleguen a los muros. \xA1La
+    distancia es tu mejor aliada!"
+  description: Completa las siguientes misiones
+  lockedDescription: "Habla con Pawn para desbloquear esta construcci\xF3n."

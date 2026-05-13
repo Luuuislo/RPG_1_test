@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdf453d6f125db519a0d19e913cbcd29, type: 3}
+  m_Name: BarracksBuilding
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingUnlockData
+  buildingName: Barracks
+  icon: {fileID: 5002096206624228670, guid: ebdaa88805e72dda9a94ef8b990876f9, type: 3}
+  prefab: {fileID: 5383543354186496598, guid: f41b0b08d54e0d9a794a3cbbd28e2a86, type: 3}
+  maxCount: 1
+  prerequisite: {fileID: 11400000, guid: 371adbfc5c2506347b04c04f70808990, type: 2}
+  capacityExpansions: []
+  requiredLevel: 1
+  goldCost: 1000
+  woodCost: 1000
+  meatCost: 1000
+  killRequirements:
+  - enemyType: EnemyBear
+    count: 3
+  requiredBuildings:
+  - building: {fileID: 0}
+    count: 1
+  pawnDialogue: "En las barracks puedes entrenar caballeros y lanceros. Son las tropas
+    que defender\xE1n el castillo de las oleadas enemigas. Sin soldados, las torres
+    solas no ser\xE1n suficientes."
+  description: Completa las siguientes misiones
+  lockedDescription: "Habla con Pawn para desbloquear esta construcci\xF3n."

@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdf453d6f125db519a0d19e913cbcd29, type: 3}
+  m_Name: TowerBuilding
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingUnlockData
+  buildingName: Tower Blue
+  icon: {fileID: 7316229441688303391, guid: 38e08f46153520620867aeda82578d6f, type: 3}
+  prefab: {fileID: 5793227791152808192, guid: 1feb33f174bd4135fb09446a7f6bcefc, type: 3}
+  maxCount: 1
+  prerequisite: {fileID: 0}
+  capacityExpansions:
+  - {fileID: 11400000, guid: 8229491865961c69ca119e9dddf46978, type: 2}
+  - {fileID: 11400000, guid: e95b155deb43feb66b8cb1c862323863, type: 2}
+  - {fileID: 11400000, guid: 609dffe7977d5a076abfbf06d6425b04, type: 2}
+  requiredLevel: 1
+  goldCost: 1000
+  woodCost: 1000
+  meatCost: 1000
+  killRequirements:
+  - enemyType: EnemySnake
+    count: 5
+  requiredBuildings: []
+  pawnDialogue: "Las torres son el pilar de defensa del castillo. Sin ellas, las
+    oleadas enemigas llegar\xE1n directamente a los muros. \xA1Construye la primera
+    torre para empezar a proteger el reino!"
+  description: Misiones para contruir la torre
+  lockedDescription: "Habla con Pawn para desbloquear esta construcci\xF3n."

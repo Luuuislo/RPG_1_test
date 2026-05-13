@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdf453d6f125db519a0d19e913cbcd29, type: 3}
+  m_Name: TowerExpansion4
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingUnlockData
+  buildingName: "4\xAA Torre"
+  icon: {fileID: 7316229441688303391, guid: 38e08f46153520620867aeda82578d6f, type: 3}
+  prefab: {fileID: 0}
+  maxCount: 0
+  prerequisite: {fileID: 11400000, guid: e95b155deb43feb66b8cb1c862323863, type: 2}
+  capacityExpansions: []
+  requiredLevel: 15
+  goldCost: 8000
+  woodCost: 6000
+  meatCost: 3000
+  killRequirements: []
+  requiredBuildings: []
+  pawnDialogue: "Cuatro torres. La defensa del castillo ser\xE1 casi impenetrable.
+    Has construido algo digno de los grandes reyes."
+  description: Cuatro torres garantizan la defensa total del castillo.
+  lockedDescription: "Debes haber desbloqueado la 3\xAA Torre primero."

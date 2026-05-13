@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdf453d6f125db519a0d19e913cbcd29, type: 3}
+  m_Name: MonasteryBuilding
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingUnlockData
+  buildingName: Monastery
+  icon: {fileID: 9080485990912184260, guid: 78452fc24a9c5fce39ad3b51a2f201ad, type: 3}
+  prefab: {fileID: 8207144998717606932, guid: 7349db7313a8f2c7fb28c16e44341978, type: 3}
+  maxCount: 1
+  prerequisite: {fileID: 11400000, guid: de27433e42789d21a9bdec5549c3b6e4, type: 2}
+  capacityExpansions: []
+  requiredLevel: 1
+  goldCost: 1000
+  woodCost: 1000
+  meatCost: 1000
+  killRequirements:
+  - enemyType: EnemyBear
+    count: 3
+  requiredBuildings:
+  - building: {fileID: 0}
+    count: 1
+  pawnDialogue: "Los monjes del monasterio curan a las tropas aliadas en batalla.
+    Sin ellos, tus caballeros caer\xE1n antes de tiempo. Un ej\xE9rcito que se cura
+    es un ej\xE9rcito invencible."
+  description: Completa las siguientes misiones para el monasterio
+  lockedDescription: "Habla con Pawn para desbloquear esta construcci\xF3n."

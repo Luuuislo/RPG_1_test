@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdf453d6f125db519a0d19e913cbcd29, type: 3}
+  m_Name: TowerExpansion3
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingUnlockData
+  buildingName: "3\xAA Torre"
+  icon: {fileID: 7316229441688303391, guid: 38e08f46153520620867aeda82578d6f, type: 3}
+  prefab: {fileID: 0}
+  maxCount: 0
+  prerequisite: {fileID: 11400000, guid: 8229491865961c69ca119e9dddf46978, type: 2}
+  capacityExpansions: []
+  requiredLevel: 10
+  goldCost: 4000
+  woodCost: 3000
+  meatCost: 1500
+  killRequirements:
+  - enemyType: EnemySnake
+    count: 5
+  requiredBuildings: []
+  pawnDialogue: "Tres torres en el per\xEDmetro del castillo pueden cubrir todos
+    los \xE1ngulos de ataque. Las oleadas m\xE1s grandes no ser\xE1n un problema."
+  description: "Con tres torres el castillo puede resistir oleadas mucho m\xE1s numerosas."
+  lockedDescription: "Debes haber desbloqueado la 2\xAA Torre primero."

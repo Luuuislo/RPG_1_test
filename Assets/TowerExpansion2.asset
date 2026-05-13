@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdf453d6f125db519a0d19e913cbcd29, type: 3}
+  m_Name: TowerExpansion2
+  m_EditorClassIdentifier: Assembly-CSharp::BuildingUnlockData
+  buildingName: "2\xAA Torre"
+  icon: {fileID: 7316229441688303391, guid: 38e08f46153520620867aeda82578d6f, type: 3}
+  prefab: {fileID: 0}
+  maxCount: 0
+  prerequisite: {fileID: 0}
+  capacityExpansions: []
+  requiredLevel: 5
+  goldCost: 2000
+  woodCost: 2000
+  meatCost: 500
+  killRequirements: []
+  requiredBuildings:
+  - building: {fileID: 11400000, guid: 371adbfc5c2506347b04c04f70808990, type: 2}
+    count: 1
+  pawnDialogue: "Con una segunda torre, los flancos del castillo quedar\xE1n protegidos.
+    Los enemigos ya no podr\xE1n rodear las defensas tan f\xE1cilmente."
+  description: "La segunda torre reforzar\xE1 los flancos del castillo."
+  lockedDescription: Construye la primera Torre para desbloquear este slot.
