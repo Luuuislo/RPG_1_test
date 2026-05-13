@@ -30,6 +30,8 @@ public class Enemy : NPC
     protected EnemyState currentState = EnemyState.Patrolling;
     protected enum EnemyState { Patrolling, Chasing, SearchingLastKnown, Returning }
 
+    bool _activateAsWaveEnemy;
+
     // ── Path tracking ────────────────────────────────────────────────────
     private NavMeshPath _navPath;
     private Vector3     _cachedDest;
@@ -65,9 +67,18 @@ public class Enemy : NPC
         base.Start();
         if (spawnPoint != null)
             patrolCenter = spawnPoint.position;
-        _navPath           = new NavMeshPath();
+        _navPath             = new NavMeshPath();
         _posAtLastStuckCheck = transform.position;
+
+        if (_activateAsWaveEnemy)
+        {
+            detectionRange = chaseRange;
+            currentState   = EnemyState.Chasing;
+        }
     }
+
+    // Llámalo después de Instantiate y antes del primer frame (Start aún no corrió).
+    public void ActivateAsWaveEnemy() => _activateAsWaveEnemy = true;
 
     protected override void Update()
     {

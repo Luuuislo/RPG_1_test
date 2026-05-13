@@ -4,7 +4,6 @@ public class GnollEnemy : Enemy
 {
     [Header("Ranged Attack")]
     public float rangedThreshold = 7f;
-    public float chaseRange = 12f;
     public GameObject bonePrefab;
     public Transform firePoint;
     public float rangedCooldown = 2.5f;

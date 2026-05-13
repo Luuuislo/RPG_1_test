@@ -9,7 +9,6 @@ public class RangedEnemy : Enemy
 
     [Header("Distances")]
     public float minAttackRange = 2f;
-    public float chaseRange = 10f;
 
     [Header("Collision")]
     public LayerMask obstacleLayer;

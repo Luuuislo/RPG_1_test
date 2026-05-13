@@ -41,10 +41,10 @@ public class BuildingSelector : MonoBehaviour
 
         if (!mouse.leftButton.wasPressedThisFrame) return;
 
-        // Don't process world clicks when the pointer is over a UI element
-        if (UnityEngine.EventSystems.EventSystem.current != null &&
-            UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject())
-            return;
+        // Don't process world clicks when the pointer is over a UI element.
+        // IsPointerOverGameObject() returns true for Physics2D hits too when
+        // Physics2DRaycaster is on the camera, so we filter by GraphicRaycaster only.
+        if (IsPointerOverUI()) return;
 
         Vector2 screen = mouse.position.ReadValue();
         Vector3 world  = Camera.main.ScreenToWorldPoint(new Vector3(screen.x, screen.y, -Camera.main.transform.position.z));
@@ -124,5 +124,24 @@ public class BuildingSelector : MonoBehaviour
             _movingBuilding.transform.position = newPosition;
         _isMoving       = false;
         _movingBuilding = null;
+    }
+
+    static bool IsPointerOverUI()
+    {
+        var es = UnityEngine.EventSystems.EventSystem.current;
+        if (es == null) return false;
+
+        var ed = new UnityEngine.EventSystems.PointerEventData(es)
+        {
+            position = UnityEngine.InputSystem.Mouse.current.position.ReadValue()
+        };
+
+        var results = new System.Collections.Generic.List<UnityEngine.EventSystems.RaycastResult>();
+        es.RaycastAll(ed, results);
+
+        foreach (var r in results)
+            if (r.module is UnityEngine.UI.GraphicRaycaster) return true;
+
+        return false;
     }
 }
