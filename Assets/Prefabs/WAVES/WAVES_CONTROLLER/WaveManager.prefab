@@ -1,0 +1,124 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2050097283389044475
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 831387285870215606}
+  - component: {fileID: 7107438953469706963}
+  m_Layer: 0
+  m_Name: WaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &831387285870215606
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050097283389044475}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 10.280029, y: -3.4342308, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7107438953469706963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050097283389044475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01fc3299b2776edecab7e667dbb411ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaveManager
+  waves:
+  - waveName: "Oleada 1 \u2014 Reconocimiento"
+    enemies:
+    - prefab: {fileID: 1109942908099162157, guid: 10e8c6a74ece4a01d930f71cd163aee6, type: 3}
+      count: 4
+      healthMultiplier: 1
+      damageMultiplier: 1
+    - prefab: {fileID: 3913157487320349936, guid: eb3fc936e36e638fba05e46dc0ed8bb7, type: 3}
+      count: 4
+      healthMultiplier: 1
+      damageMultiplier: 1
+    delayBeforeWave: 3
+    announcementSubtitle: 
+  - waveName: "Oleada 2 \u2014 Avanzada"
+    enemies:
+    - prefab: {fileID: 7816984444691749996, guid: 9a3df9a35050ca14cb4c658512778d16, type: 3}
+      count: 4
+      healthMultiplier: 1.2
+      damageMultiplier: 1.1
+    - prefab: {fileID: 4385968071736256946, guid: 6325c2de0742539ed9254629c975fba8, type: 3}
+      count: 4
+      healthMultiplier: 1.2
+      damageMultiplier: 1.1
+    delayBeforeWave: 8
+    announcementSubtitle: 
+  - waveName: "Oleada 3 \u2014 Asalto"
+    enemies:
+    - prefab: {fileID: 1305626244847941798, guid: d149bd4dc6ff44c1cbef662752075cdb, type: 3}
+      count: 4
+      healthMultiplier: 1.5
+      damageMultiplier: 1.3
+    - prefab: {fileID: 6651328773801274524, guid: 3c652d32f337f3f1db96e8e242878c7e, type: 3}
+      count: 3
+      healthMultiplier: 1.5
+      damageMultiplier: 1.3
+    delayBeforeWave: 10
+    announcementSubtitle: 
+  - waveName: "Oleada 4 \u2014 Ejercito"
+    enemies:
+    - prefab: {fileID: 3186700576479039238, guid: e0b86a27755d6952eacd98f6d828eff9, type: 3}
+      count: 4
+      healthMultiplier: 2
+      damageMultiplier: 1.5
+    - prefab: {fileID: 3039682712531679499, guid: 681f58b51d3ee17498f514a867d02e14, type: 3}
+      count: 3
+      healthMultiplier: 2
+      damageMultiplier: 1.5
+    - prefab: {fileID: 6651328773801274524, guid: 3c652d32f337f3f1db96e8e242878c7e, type: 3}
+      count: 3
+      healthMultiplier: 2
+      damageMultiplier: 1.5
+    delayBeforeWave: 12
+    announcementSubtitle: 
+  - waveName: "Oleada 5 \u2014 El Jefe"
+    enemies:
+    - prefab: {fileID: 7523747893676012036, guid: a9f501a6414fb3103aeba577a06cad5b, type: 3}
+      count: 1
+      healthMultiplier: 4
+      damageMultiplier: 2
+    - prefab: {fileID: 779759811134261621, guid: db3f4c8e4a51cd07482322a7909561d9, type: 3}
+      count: 2
+      healthMultiplier: 3
+      damageMultiplier: 1.8
+    - prefab: {fileID: 3186700576479039238, guid: e0b86a27755d6952eacd98f6d828eff9, type: 3}
+      count: 4
+      healthMultiplier: 2.5
+      damageMultiplier: 1.6
+    delayBeforeWave: 15
+    announcementSubtitle: 
+  spawnPoints: []
+  autoStart: 1
+  spawnIntervalSeconds: 0.25
+  waveLabel: {fileID: 0}
+  statusLabel: {fileID: 0}
+  waveAnnouncement: {fileID: 0}
+  onAllWavesCleared:
+    m_PersistentCalls:
+      m_Calls: []

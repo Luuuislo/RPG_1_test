@@ -22,7 +22,9 @@ MonoBehaviour:
   goldCost: 2000
   woodCost: 2000
   meatCost: 500
-  killRequirements: []
+  killRequirements:
+  - enemyType: 
+    count: 0
   requiredBuildings:
   - building: {fileID: 11400000, guid: 371adbfc5c2506347b04c04f70808990, type: 2}
     count: 1

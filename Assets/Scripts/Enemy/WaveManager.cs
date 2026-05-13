@@ -18,6 +18,8 @@ public class WaveData
     public string            waveName        = "Wave";
     public EnemySpawnEntry[] enemies;
     [Min(0f)] public float   delayBeforeWave = 5f;
+    [Tooltip("Subtítulo del anuncio para esta oleada. Vacío = usa el subtítulo por defecto del WaveAnnouncementUI.")]
+    [TextArea(1, 2)] public string announcementSubtitle = "";
 }
 
 public class WaveManager : MonoBehaviour
@@ -36,6 +38,9 @@ public class WaveManager : MonoBehaviour
     [Header("UI (opcional)")]
     public TextMeshProUGUI waveLabel;
     public TextMeshProUGUI statusLabel;
+
+    [Header("Announcement")]
+    public WaveAnnouncementUI waveAnnouncement;
 
     [Header("Events")]
     public UnityEvent onAllWavesCleared;
@@ -109,6 +114,7 @@ public class WaveManager : MonoBehaviour
         WaveData wave = waves[index];
         SetLabel($"Oleada {index + 1} / {waves.Length}");
         SetStatus($"¡{wave.waveName}!");
+        waveAnnouncement?.Show(index + 1, waves.Length, wave.announcementSubtitle);
 
         // Count total alive before spawning anything
         _aliveCount = 0;
